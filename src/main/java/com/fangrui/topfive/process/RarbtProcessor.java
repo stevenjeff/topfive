@@ -42,12 +42,14 @@ public class RarbtProcessor implements PageProcessor {
     public void process(Page page) {
         page.addTargetRequests(page.getHtml().links().regex("(http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html)").all());
         page.putField("author", page.getUrl().regex("http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html").toString());
-        System.out.println(page.getUrl().regex("http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html").toString());
-        page.putField("name", page.getHtml().xpath("//h1[@class='public']/strong/a/text()").toString());
-        if (page.getResultItems().get("name") == null) {
-            //skip this page
-            page.setSkip(true);
-        }
+        page.putField("name", page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p/a/text()").toString());
+        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p/a/text()").toString());
+        System.out.println(page.getHtml().xpath("//div[@class='item cl']/text()").toString());
+        System.out.println(page.getHtml().xpath("//div[@class='item cl']").toString());
+        //        if (page.getResultItems().get("name") == null) {
+//            //skip this page
+//            page.setSkip(true);
+//        }
         page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
     }
 
