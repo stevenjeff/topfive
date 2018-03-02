@@ -20,26 +20,26 @@ import java.util.stream.Collectors;
  * @description
  * @date 2018/1/23
  */
-//http://www.rarbt.com/index.php/index/index/p/
-public class RarbtProcessor implements PageProcessor {
+public class ThreedmgameDay0 implements PageProcessor {
     private List<RowData> rowDataList = new ArrayList<>();
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     public static void main(String[] args) {
         List<String> array = new ArrayList<>();
-        for (int pageIndex = 1; pageIndex <= 5; pageIndex++) {
-            array.add("http://www.rarbt.com/index.php/index/index/p/"+pageIndex+".html");
+        array.add("http://bbs.3dmgame.com/game0day");
+        for (int pageIndex = 2; pageIndex <= 5; pageIndex++) {
+            array.add("http://bbs.3dmgame.com/forum-game0day-" + pageIndex + ".html");
         }
         String[] urls = array.toArray(new String[array.size()]);
-        RarbtProcessor rarbtProcessor = new RarbtProcessor();
-        OOSpider.create(rarbtProcessor)
+        ThreedmgameDay0 processor = new ThreedmgameDay0();
+        OOSpider.create(processor)
                 .addUrl(urls)
                 .addPipeline(new JsonFilePipeline("D:\\data\\webmagic"))
                 .thread(5)
                 .run();
-        List<RowData> rowDataList = rarbtProcessor.getRowDataList().stream().sorted().collect(Collectors.toList());
+        List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = "rarBt_" + sdf1.format(new Date());
+        String fileName = "3dmDay0_" + sdf1.format(new Date());
         CommonUtil.setTopTen(rowDataList, fileName, new String[]{"name", "href", "rate"});
     }
 

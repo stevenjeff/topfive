@@ -5,7 +5,7 @@ package com.fangrui.bean;
  * @description
  * @date 2018/3/2
  */
-public class RarBt implements Comparable<RarBt> {
+public class RowData implements Comparable<RowData> {
     private String name;
     private String href;
     private String rate;
@@ -35,7 +35,7 @@ public class RarBt implements Comparable<RarBt> {
     }
 
     @Override
-    public int compareTo(RarBt o) {
+    public int compareTo(RowData o) {
         Integer currentRate = 0;
         Integer anotherRate = 0;
         try {
