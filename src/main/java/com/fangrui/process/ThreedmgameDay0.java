@@ -45,7 +45,7 @@ public class ThreedmgameDay0 implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        Selectable selectable = page.getHtml().xpath("//div[@class='item cl']");
+        Selectable selectable = page.getHtml().xpath("//tbody[@id='normalthread_\\d{7}']");
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
             for (Selectable node : nodes) {
@@ -56,10 +56,6 @@ public class ThreedmgameDay0 implements PageProcessor {
                 rowDataList.add(rowData);
             }
         }
-        //        if (page.getResultItems().get("name") == null) {
-//            //skip this page
-//            page.setSkip(true);
-//        }
     }
 
     public List<RowData> getRowDataList() {
