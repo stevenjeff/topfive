@@ -45,9 +45,6 @@ public class ThreedmgameDay0 implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        page.putField("author", page.getUrl().regex("http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html").toString());
-        page.putField("name", page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p/a/text()").toString());
-//        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@title").toString());
         Selectable selectable = page.getHtml().xpath("//div[@class='item cl']");
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
@@ -63,7 +60,6 @@ public class ThreedmgameDay0 implements PageProcessor {
 //            //skip this page
 //            page.setSkip(true);
 //        }
-        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
     }
 
     public List<RowData> getRowDataList() {
