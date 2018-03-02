@@ -1,6 +1,7 @@
 package com.fangrui.process;
 
 import com.fangrui.bean.RarBt;
+import com.fangrui.util.CommonUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
@@ -8,8 +9,11 @@ import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zhangfangrui
@@ -19,7 +23,7 @@ import java.util.List;
 //http://www.rarbt.com/index.php/index/index/p/
 public class RarbtProcessor implements PageProcessor {
     private List<RarBt> rarBtList = new ArrayList<>();
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(15000);
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     public static void main(String[] args) {
         List<String> array = new ArrayList<>();
@@ -29,36 +33,32 @@ public class RarbtProcessor implements PageProcessor {
         String[] urls = array.toArray(new String[array.size()]);
         RarbtProcessor rarbtProcessor = new RarbtProcessor();
         OOSpider.create(rarbtProcessor)
-                //从https://github.com/code4craft开始抓
                 .addUrl(urls)
                 .addPipeline(new JsonFilePipeline("D:\\data\\webmagic"))
                 .thread(5)
                 .run();
-        System.out.println(rarbtProcessor.getRarBtList());
+        List<RarBt> rarBtList = rarbtProcessor.getRarBtList().stream().sorted().collect(Collectors.toList());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        String fileName = "rarBt_" + sdf1.format(new Date());
+        CommonUtil.setTopTen(rarBtList, fileName);
     }
 
     @Override
     public void process(Page page) {
-        //page.addTargetRequests(page.getHtml().links().regex("(http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html)").all());
         page.putField("author", page.getUrl().regex("http://www\\.rarbt\\.com/index\\.php/index/index/p/\\d+\\.html").toString());
         page.putField("name", page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p/a/text()").toString());
-        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@title").toString());
-        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@href").toString());
-        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='rt']/strong/text()").toString());
+//        System.out.println(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@title").toString());
         Selectable selectable = page.getHtml().xpath("//div[@class='item cl']");
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
             for (Selectable node : nodes) {
-                node.xpath("//div[@class='title']/p[@class='tt cl']/a/@href").toString();
-                node.xpath("//div[@class='title']/p[@class='tt cl']/a/@title").toString();
-                node.xpath("//div[@class='title']/p[@class='rt']/strong/text()").toString();
+                RarBt rarBt = new RarBt();
+                rarBt.setHref("http://www.rarbt.com" + node.xpath("//div[@class='title']/p[@class='tt cl']/a/@href").toString());
+                rarBt.setName(node.xpath("//div[@class='title']/p[@class='tt cl']/a/@title").toString());
+                rarBt.setRate(node.xpath("//div[@class='title']/p[@class='rt']/strong/text()").toString());
+                rarBtList.add(rarBt);
             }
         }
-        RarBt rarBt = new RarBt();
-        rarBt.setHref(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@href").toString());
-        rarBt.setName(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='tt cl']/a/@title").toString());
-        rarBt.setRate(page.getHtml().xpath("//div[@class='item cl']/div[@class='title']/p[@class='rt']/strong/text()").toString());
-        rarBtList.add(rarBt);
         //        if (page.getResultItems().get("name") == null) {
 //            //skip this page
 //            page.setSkip(true);

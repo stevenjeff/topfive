@@ -5,7 +5,7 @@ package com.fangrui.bean;
  * @description
  * @date 2018/3/2
  */
-public class RarBt {
+public class RarBt implements Comparable<RarBt> {
     private String name;
     private String href;
     private String rate;
@@ -32,5 +32,22 @@ public class RarBt {
 
     public void setRate(String rate) {
         this.rate = rate;
+    }
+
+    @Override
+    public int compareTo(RarBt o) {
+        Integer currentRate = 0;
+        Integer anotherRate = 0;
+        try {
+            currentRate = Integer.parseInt(this.rate);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        try {
+            anotherRate = Integer.parseInt(o.rate);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return anotherRate - currentRate;
     }
 }
