@@ -1,4 +1,4 @@
-package com.fangrui.topfive;
+package com.fangrui;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

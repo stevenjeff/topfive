@@ -1,4 +1,4 @@
-package com.fangrui.topfive.util;
+package com.fangrui.util;
 
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.ConsolePageModelPipeline;

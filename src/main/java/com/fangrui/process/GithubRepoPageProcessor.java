@@ -1,4 +1,4 @@
-package com.fangrui.topfive.process;
+package com.fangrui.process;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
