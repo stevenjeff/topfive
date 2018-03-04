@@ -40,7 +40,7 @@ public class RarbtProcessor implements PageProcessor {
         List<RowData> rowDataList = rarbtProcessor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "rarBt_" + sdf1.format(new Date());
-        CommonUtil.setTopTen(rowDataList, fileName, new String[]{"name", "href", "rate"});
+        CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
     }
 
     @Override
@@ -52,11 +52,15 @@ public class RarbtProcessor implements PageProcessor {
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
             for (Selectable node : nodes) {
-                RowData rowData = new RowData();
-                rowData.setHref("http://www.rarbt.com" + node.xpath("//div[@class='title']/p[@class='tt cl']/a/@href").toString());
-                rowData.setName(node.xpath("//div[@class='title']/p[@class='tt cl']/a/@title").toString());
-                rowData.setRate(node.xpath("//div[@class='title']/p[@class='rt']/strong/text()").toString());
-                rowDataList.add(rowData);
+                try {
+                    RowData rowData = new RowData();
+                    rowData.setHref("http://www.rarbt.com" + node.xpath("//div[@class='title']/p[@class='tt cl']/a/@href").toString());
+                    rowData.setName(node.xpath("//div[@class='title']/p[@class='tt cl']/a/@title").toString());
+                    rowData.setRate(node.xpath("//div[@class='title']/p[@class='rt']/strong/text()").toString());
+                    rowDataList.add(rowData);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         //        if (page.getResultItems().get("name") == null) {

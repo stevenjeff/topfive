@@ -1,6 +1,7 @@
 package com.fangrui.bean;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author zhangfangrui
@@ -14,6 +15,13 @@ public class RowData implements Comparable<RowData> {
     private String rate;
     private String replyCnt;
     private String viewCnt;
+
+    public void setName(String name) throws Exception {
+        if (StringUtils.isEmpty(name)) {
+            throw new Exception("name is null");
+        }
+        this.name = name;
+    }
 
     @Override
     public int compareTo(RowData o) {

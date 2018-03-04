@@ -15,8 +15,11 @@ import java.util.List;
  * @date 2018/3/2
  */
 public class CommonUtil {
-    public static <T> void setTopTen(List<T> dataList, String fileName, String... propertyNames) {
+    public static <T> void setTopList(List<T> dataList, String fileName, Integer topNum, String... propertyNames) {
         try {
+            if (null == topNum) {
+                topNum = 10;
+            }
             List<T> topList = dataList;
             if (dataList != null && dataList.size() > 10) {
                 topList = dataList.subList(0, 10);

@@ -2,6 +2,7 @@ package com.fangrui.process;
 
 import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
+import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
@@ -40,7 +41,7 @@ public class ThreedmgameDay0 implements PageProcessor {
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        CommonUtil.setTopTen(rowDataList, fileName, new String[]{"name", "href", "rate"});
+        CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
     }
 
     @Override
@@ -49,11 +50,19 @@ public class ThreedmgameDay0 implements PageProcessor {
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
             for (Selectable node : nodes) {
-                RowData rowData = new RowData();
-                rowData.setName(node.xpath("//th[@class='new']/a[3]/text()").toString());
-                rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
-                rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
-                rowDataList.add(rowData);
+                try {
+                    RowData rowData = new RowData();
+                    String name = node.xpath("//th[@class='new']/a[3]/text()").toString();
+                    if (StringUtils.isEmpty(name)) {
+                        name = node.xpath("//th[@class='common']/a[3]/text()").toString();
+                    }
+                    rowData.setName(name);
+                    rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
+                    rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
+                    rowDataList.add(rowData);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
