@@ -27,7 +27,7 @@ public class ThreedmgameDay0 implements PageProcessor {
     public static void main(String[] args) {
         List<String> array = new ArrayList<>();
         array.add("http://bbs.3dmgame.com/game0day");
-        for (int pageIndex = 2; pageIndex <= 5; pageIndex++) {
+        for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
             array.add("http://bbs.3dmgame.com/forum-game0day-" + pageIndex + ".html");
         }
         String[] urls = array.toArray(new String[array.size()]);
@@ -45,14 +45,14 @@ public class ThreedmgameDay0 implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        Selectable selectable = page.getHtml().xpath("//tbody[@id='normalthread_\\d{7}']");
+        Selectable selectable = page.getHtml().xpath("//tbody[@id~='normalthread_']");
         List<Selectable> nodes = selectable.nodes();
         if (nodes != null) {
             for (Selectable node : nodes) {
                 RowData rowData = new RowData();
-                rowData.setHref("http://www.rarbt.com" + node.xpath("//div[@class='title']/p[@class='tt cl']/a/@href").toString());
-                rowData.setName(node.xpath("//div[@class='title']/p[@class='tt cl']/a/@title").toString());
-                rowData.setRate(node.xpath("//div[@class='title']/p[@class='rt']/strong/text()").toString());
+                rowData.setName(node.xpath("//th[@class='new']/a[3]/text()").toString());
+                rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
+                rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
                 rowDataList.add(rowData);
             }
         }
