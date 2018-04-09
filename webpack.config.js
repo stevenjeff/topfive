@@ -7,17 +7,21 @@ module.exports = {
         filename: 'bundle.js'//输出文件名
     },
     module: {//在配置文件里添加加载器说明，指明每种文件需要什么加载器处理
-        loaders: [
+        rules: [
             {//json加载器
                 test: /\.json$/,
                 loader: "json-loader"//注意-loader不能省略，网上说能省略，经测试编译会报错
+            },
+            {//json加载器
+                test: /\.js/,
+                loader: "script-loader"
             },
             {//5、编译es6配置
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',//在webpack的module部分的loaders里进行配置即可
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015']
                 }
             },
             {//3、CSS-loader
