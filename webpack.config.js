@@ -12,10 +12,6 @@ module.exports = {
                 test: /\.json$/,
                 loader: "json-loader"//注意-loader不能省略，网上说能省略，经测试编译会报错
             },
-            {//json加载器
-                test: /\.js/,
-                loader: "script-loader"
-            },
             {//5、编译es6配置
                 test: /\.js$/,
                 exclude: /node_modules/,
