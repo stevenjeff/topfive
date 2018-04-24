@@ -8,6 +8,10 @@ module.exports = {
     },
     module: {//在配置文件里添加加载器说明，指明每种文件需要什么加载器处理
         rules: [
+            {
+                use: 'babel-loader',
+                test: /\.js$/
+            },
             {//json加载器
                 test: /\.json$/,
                 loader: "json-loader"//注意-loader不能省略，网上说能省略，经测试编译会报错
