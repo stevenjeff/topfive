@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 module.exports = {
     //2、进出口文件配置
     entry: __dirname + '/source/js/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
@@ -31,11 +32,16 @@ module.exports = {
 
         ]
     },
+    //其他解决方案配置
+    resolve: {
+        extensions: ['.js', '.json', '.css', '.scss', '.vue']//添加在此的后缀所对应的文件可以省略后缀
+    },
     //4、服务器依赖包配置
     devServer: {//注意：网上很多都有colors属性，但是实际上的webpack2.x已经不支持该属性了
         contentBase: "./source",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,//不跳转
-        inline: true//实时刷新
+        inline: true,//实时刷新
+        port: 8181
         //hot：true,//不要书写该属性，否则浏览器无法自动更新
         //publicPath："/asses/",//设置该属性后，webpack-dev-server会相对于该路径
     },
