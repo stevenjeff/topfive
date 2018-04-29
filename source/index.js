@@ -1,12 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {store} from './vuex/store';
+import VueRouter from 'vue-router';
 import App from './App'
-import router from './router'
-import store from '@/vuex/store.js'   //vuex
-import api from '@/http/api.js'       //http请求
-import less from 'less'
+import {routes} from './router/routes'
+import store from '@/vuex/store'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    routes,
+    store,
+    mode: 'history'
+});
+Vue.config.productionTip = false;
+//开启debug模式
+Vue.config.debug = true
 
 new Vue({
     el: '#app',
+    router,
     render: h => h(App)
 })
