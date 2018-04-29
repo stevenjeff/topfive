@@ -2,13 +2,20 @@ var webpack = require('webpack');
 var path = require('path');
 module.exports = {
     //2、进出口文件配置
-    entry: __dirname + '/source/js/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+    entry: __dirname + '/source/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
     output: {//输出
         path: __dirname + '/build',//输出路径
         filename: 'bundle.js'//输出文件名
     },
     module: {//在配置文件里添加加载器说明，指明每种文件需要什么加载器处理
         rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue',
+                options: {
+                    // vue-loader options go here
+                }
+            },
             {
                 use: 'babel-loader',
                 test: /\.js$/
@@ -28,8 +35,14 @@ module.exports = {
             {//3、CSS-loader
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'//添加对样式表的处理
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'file',
+                options: {
+                    name: '[name].[ext]?[hash]'
+                }
             }
-
         ]
     },
     //其他解决方案配置
