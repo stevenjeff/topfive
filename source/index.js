@@ -3,9 +3,9 @@ import {store} from './vuex/store';
 import VueRouter from 'vue-router';
 import App from './App'
 import {routes} from './router/routes'
-//import store from '@/vuex/store'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import store from '@/vuex/store'
 
 Vue.use(VueRouter);
 
