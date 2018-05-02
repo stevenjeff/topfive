@@ -11,7 +11,7 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue',
+                loader: 'vue-loader',
                 options: {
                     // vue-loader options go here
                 }
@@ -57,6 +57,9 @@ module.exports = {
         port: 8181
         //hot：true,//不要书写该属性，否则浏览器无法自动更新
         //publicPath："/asses/",//设置该属性后，webpack-dev-server会相对于该路径
+    },
+    performance: {
+        hints: false
     },
     plugins: [
         new webpack.ProvidePlugin({
