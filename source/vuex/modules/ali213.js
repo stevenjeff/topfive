@@ -5,38 +5,38 @@ const state = {
 };
 
 const getters = {
-    [types.DOUBLE_COUNTER]: state => {
+    [types.DOUBLE_ALI213]: state => {
         return state.counter * 2;
     },
-    [types.CLICK_COUNTER]: state => {
+    [types.CLICK_ALI213]: state => {
         return state.counter + ' Clicks';
     }
 };
 
 const mutations = {
-    [types.MUTATE_INCREMENT_COUNTER]: (state, payload) => {
+    [types.MUTATE_INCREMENT_ALI213]: (state, payload) => {
         state.counter += payload;
     },
-    [types.MUTATE_DECREMENT_COUNTER]: (state, payload) => {
+    [types.MUTATE_DECREMENT_ALI213]: (state, payload) => {
         state.counter -= payload;
     }
 };
 
 const actions = {
-    [types.COUNTER_INCREMENT]: ({commit}, payload) => {
-        commit(types.MUTATE_INCREMENT_COUNTER, payload);
+    [types.ALI213_INCREMENT]: ({commit}, payload) => {
+        commit(types.MUTATE_INCREMENT_ALI213, payload);
     },
-    [types.COUNTER_DECREMENT]: ({commit}, payload) => {
-        commit(types.MUTATE_DECREMENT_COUNTER, payload);
+    [types.ALI213_DECREMENT]: ({commit}, payload) => {
+        commit(types.MUTATE_DECREMENT_ALI213, payload);
     },
-    [types.COUNTER_INCREMENT_ASYNC]: ({commit}, payload) => {
+    [types.ALI213_INCREMENT_ASYNC]: ({commit}, payload) => {
         setTimeout(() => {
-            commit(types.MUTATE_INCREMENT_COUNTER, payload.by);
+            commit(types.MUTATE_INCREMENT_ALI213, payload.by);
         }, payload.duration);
     },
-    [types.COUNTER_DECREMENT_ASYNC]: ({commit}, payload) => {
+    [types.ALI213_DECREMENT_ASYNC]: ({commit}, payload) => {
         setTimeout(() => {
-            commit(types.MUTATE_DECREMENT_COUNTER, payload.by);
+            commit(types.MUTATE_DECREMENT_ALI213, payload.by);
         }, payload.duration);
     }
 };
