@@ -4,7 +4,7 @@ module.exports = {
     //2、进出口文件配置
     entry: __dirname + '/source/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
     output: {//输出
-        path: __dirname + '/dist',//输出路径
+        path: __dirname + '/build',//输出路径
         filename: 'bundle.js'//输出文件名
     },
     module: {//在配置文件里添加加载器说明，指明每种文件需要什么加载器处理

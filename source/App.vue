@@ -1,22 +1,30 @@
 <template>
     <div class="container">
         <app-header></app-header>
-        <div class="row">
-            <div class="col-xs-12">
-                <transition name="slide" mode="out-in">
-                    <router-view></router-view>
-                </transition>
-            </div>
+        <div class="tab-content" id="pills-tabContent">
+            <transition name="slide" mode="out-in">
+                <router-view></router-view>
+            </transition>
         </div>
+        <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+        <!--<transition name="slide" mode="out-in">-->
+        <!--<router-view></router-view>-->
+        <!--</transition>-->
+        <!--</div>-->
+        <!--</div>-->
+        <app-footer></app-footer>
     </div>
 </template>
 
 <script>
-    import Header from './common/Header.vue';
+    import Header from './common/Header';
+    import Footer from './common/Footer';
     export default {
         name: "App",
         components: {
-            appHeader: Header
+            appHeader: Header,
+            appFooter: Footer
         }
     }
 </script>

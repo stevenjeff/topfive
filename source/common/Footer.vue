@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12">
             <footer>
-                <p>All Rights Reserved/p>
+                <p>All Rights Reserved</p>
             </footer>
         </div>
     </div>
