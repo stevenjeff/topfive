@@ -1,8 +1,9 @@
 <template>
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-               aria-controls="pills-home" aria-selected="true">Home</a>
+            <router-link to="/" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+                         active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>Home</a>
+            </router-link>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"

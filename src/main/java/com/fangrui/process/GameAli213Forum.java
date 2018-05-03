@@ -21,16 +21,17 @@ import java.util.stream.Collectors;
  * @description
  * @date 2018/1/23
  */
-public class GameAli213Forum implements PageProcessor {
+public class GameAli213Forum implements PageProcessor, SpiderRunner {
     private List<RowData> rowDataList = new ArrayList<>();
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     public static void main(String[] args) {
-        String a = "";
-        a = "b";
-        a = "c";
-        a = "d";
-        a = "e";
+        GameAli213Forum gameAli213Forum = new GameAli213Forum();
+        gameAli213Forum.runSpider();
+    }
+
+    @Override
+    public String runSpider() {
         List<String> array = new ArrayList<>();
         array.add("http://bbs.3dmgame.com/game0day");
         for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
@@ -42,7 +43,7 @@ public class GameAli213Forum implements PageProcessor {
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
+        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
     }
 
     @Override

@@ -15,7 +15,8 @@ import java.util.List;
  * @date 2018/3/2
  */
 public class CommonUtil {
-    public static <T> void setTopList(List<T> dataList, String fileName, Integer topNum, String... propertyNames) {
+    public static <T> String setTopList(List<T> dataList, String fileName, Integer topNum, String... propertyNames) {
+        String jsonStr = null;
         try {
             if (null == topNum) {
                 topNum = 10;
@@ -30,11 +31,13 @@ public class CommonUtil {
                     filter.getIncludes().add(propertyName);
                 }
             }
+            jsonStr = JSON.toJSONString(topList, filter);
             PrintWriter printWriter = new PrintWriter(new FileWriter(new File(fileName)));
-            printWriter.write(JSON.toJSONString(topList, filter));
+            printWriter.write(jsonStr);
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return jsonStr;
     }
 }
