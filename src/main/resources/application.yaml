@@ -1,0 +1,6 @@
+spring:
+  cache:
+    cache-names: caffeineCache
+    type: caffeine
+    caffeine:
+      spec: maximumSize=999999,expireAfterAccess=24h
