@@ -4,36 +4,18 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">名称</th>
+                <th scope="col">点击率</th>
+                <th scope="col">链接</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
             <template v-if="pageData">
-                <tr v-for="(index,rowData) in pageData" :key="rowData">
-                    <th scope="row">{{index}}</th>
+                <tr v-for="(rowData,index) in pageData" :key="rowData">
+                    <th scope="row">{{++index}}</th>
                     <td>{{rowData.name}}</td>
                     <td>{{rowData.rate}}</td>
-                    <td><a :href="rowData.href" target="_blank"></a></td>
+                    <td><a :href="rowData.href" target="_blank">打开</a></td>
                 </tr>
             </template>
             </tbody>
@@ -50,8 +32,7 @@
         },
         created: function () {
             this.$axios.get("/3dm").then(res => {
-                console.log("res:" + res);
-                console.log("resdata:" + res.data.name);
+                this.pageData = res.data;
             }).catch(error => console.log(error))
         }
     }
