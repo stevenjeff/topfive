@@ -1,5 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const extractCss = new ExtractTextWebpackPlugin("css/[name].css");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     //2、进出口文件配置
     entry: __dirname + '/source/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
@@ -42,6 +45,14 @@ module.exports = {
                 options: {
                     name: '[name].[ext]?[hash]'
                 }
+            },
+            {
+                test: /\.less$/,
+                loaders: 'style-loader!css-loader!less-loader'
+            },
+            {
+                test: /\.scss$/,
+                loaders: 'style-loader!css-loader!sass-loader'
             }
         ]
     },
@@ -66,6 +77,11 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery"
+        }),
+        new HtmlWebpackPlugin({
+            title: 'top resource',
+            template: __dirname + '/build/index.html',
+            hash: true
         })
     ]//插件
 }
@@ -81,6 +97,9 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
+            },
+            mangle: {
+                except: ['$super', '$', 'exports', 'require']
             }
         }),
         new webpack.LoaderOptionsPlugin({

@@ -28,13 +28,20 @@
                 <td>the Bird</td>
                 <td>@twitter</td>
             </tr>
+            <template v-if="pageData">
+                <tr v-for="rowData in pageData" :key="rowData">
+                    <td>{{rowData.name}}</td>
+                    <td>{{rowData.rate}}</td>
+                    <td><a :href="rowData.href" target="_blank"></a></td>
+                </tr>
+            </template>
             </tbody>
         </table>
     </div>
 </template>
 <script>
     export default {
-        name: "Home"
+        name: "Games"
     }
 </script>
 <style scoped>

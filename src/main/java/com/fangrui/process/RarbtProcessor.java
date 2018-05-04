@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
  * @description
  * @date 2018/1/23
  */
-//http://www.rarbt.com/index.php/index/index/p/
 public class RarbtProcessor implements PageProcessor, SpiderRunner {
     private List<RowData> rowDataList = new ArrayList<>();
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);

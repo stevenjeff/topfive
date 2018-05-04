@@ -1,8 +1,8 @@
-import Home from '../common/Home.vue';
+import Home from '../views/Games.vue';
 
 export const routes = [
     {
-        path: '', name: 'home', components: {
+        path: '', name: 'games', components: {
             default: Home,
         }
     },
@@ -11,6 +11,6 @@ export const routes = [
             default: Home,
         }
     },
-    {path: '/redirect-me', redirect: {name: 'home'}},
+    {path: '/redirect-me', redirect: {name: 'games'}},
     {path: '*', redirect: '/'}
 ];

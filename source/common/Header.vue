@@ -2,20 +2,20 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <router-link to="/" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
-                         active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>Home</a>
+                         active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>游戏 GAMES</a>
             </router-link>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-               aria-controls="pills-profile" aria-selected="false">Profile</a>
+            <router-link to="/videos" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+                         active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>视频 VIDEOS</a>
+            </router-link>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-               aria-controls="pills-contact" aria-selected="false">Contact</a>
+            <router-link to="/others" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+                         active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>其他 OTHERS</a>
+            </router-link>
         </li>
     </ul>
-    <!--<router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>-->
-    <!--<router-link to="/user" tag="li" active-class="active"><a>User</a></router-link>-->
 </template>
 
 <script>
