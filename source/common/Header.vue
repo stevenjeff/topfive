@@ -6,12 +6,12 @@
             </router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/videos" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+            <router-link to="/videos" tag="a" class="nav-link" data-toggle="pill" href="#pills-home" role="tab"
                          active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>视频 VIDEOS</a>
             </router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/others" tag="a" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+            <router-link to="/others" tag="a" class="nav-link" data-toggle="pill" href="#pills-home" role="tab"
                          active-class="active" aria-controls="pills-home" aria-selected="true" exact><a>其他 OTHERS</a>
             </router-link>
         </li>
