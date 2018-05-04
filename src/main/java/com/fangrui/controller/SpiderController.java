@@ -18,4 +18,9 @@ public class SpiderController {
     public Object triggerAli213() {
         return spiderService.getAli213Data();
     }
+
+    @GetMapping("/3dm")
+    public Object trigger3DM() {
+        return spiderService.get3DMData();
+    }
 }

@@ -29,7 +29,8 @@
                 <td>@twitter</td>
             </tr>
             <template v-if="pageData">
-                <tr v-for="rowData in pageData" :key="rowData">
+                <tr v-for="(index,rowData) in pageData" :key="rowData">
+                    <th scope="row">{{index}}</th>
                     <td>{{rowData.name}}</td>
                     <td>{{rowData.rate}}</td>
                     <td><a :href="rowData.href" target="_blank"></a></td>
@@ -41,7 +42,18 @@
 </template>
 <script>
     export default {
-        name: "Games"
+        name: "Games",
+        data: function () {
+            return {
+                pageData: []
+            };
+        },
+        created: function () {
+            this.$axios.get("/3dm").then(res => {
+                console.log("res:" + res);
+                console.log("resdata:" + res.data.name);
+            }).catch(error => console.log(error))
+        }
     }
 </script>
 <style scoped>
