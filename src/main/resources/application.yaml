@@ -1,6 +1,6 @@
 spring:
   cache:
-    cache-names: caffeineCache
+    cache-names: ali213Cache,3dmCache,rarBtCache
     type: caffeine
     caffeine:
       spec: maximumSize=999999,expireAfterAccess=24h

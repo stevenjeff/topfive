@@ -2,6 +2,8 @@ package com.fangrui.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.fangrui.process.GameAli213Forum;
+import com.fangrui.process.RarbtProcessor;
+import com.fangrui.process.ThreedmgameDay0;
 import com.fangrui.service.SpiderService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,20 @@ import org.springframework.stereotype.Service;
 public class SpiderServiceImpl implements SpiderService {
 
     @Override
-    @Cacheable(value = "caffeineCache")
+    @Cacheable(value = "ali213Cache")
     public Object getAli213Data() {
-        GameAli213Forum gameAli213Forum = new GameAli213Forum();
-        String jsonStr = gameAli213Forum.runSpider();
-        JSONArray parse = (JSONArray) JSONArray.parse(jsonStr);
-        return parse;
+        return JSONArray.parse(new GameAli213Forum().runSpider());
+    }
+
+    @Override
+    @Cacheable(value = "3dmCache")
+    public Object get3DMData() {
+        return JSONArray.parse(new ThreedmgameDay0().runSpider());
+    }
+
+    @Override
+    @Cacheable(value = "rarBtCache")
+    public Object getRarBtData() {
+        return JSONArray.parse(new RarbtProcessor().runSpider());
     }
 }

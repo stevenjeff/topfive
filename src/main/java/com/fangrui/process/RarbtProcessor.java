@@ -21,26 +21,12 @@ import java.util.stream.Collectors;
  * @date 2018/1/23
  */
 //http://www.rarbt.com/index.php/index/index/p/
-public class RarbtProcessor implements PageProcessor {
+public class RarbtProcessor implements PageProcessor, SpiderRunner {
     private List<RowData> rowDataList = new ArrayList<>();
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     public static void main(String[] args) {
-        List<String> array = new ArrayList<>();
-        for (int pageIndex = 1; pageIndex <= 5; pageIndex++) {
-            array.add("http://www.rarbt.com/index.php/index/index/p/"+pageIndex+".html");
-        }
-        String[] urls = array.toArray(new String[array.size()]);
-        RarbtProcessor rarbtProcessor = new RarbtProcessor();
-        OOSpider.create(rarbtProcessor)
-                .addUrl(urls)
-                .addPipeline(new JsonFilePipeline("D:\\data\\webmagic"))
-                .thread(5)
-                .run();
-        List<RowData> rowDataList = rarbtProcessor.getRowDataList().stream().sorted().collect(Collectors.toList());
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = "rarBt_" + sdf1.format(new Date());
-        CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
+        new RarbtProcessor().runSpider();
     }
 
     @Override
@@ -62,10 +48,6 @@ public class RarbtProcessor implements PageProcessor {
                 }
             }
         }
-        //        if (page.getResultItems().get("name") == null) {
-//            //skip this page
-//            page.setSkip(true);
-//        }
         page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
     }
 
@@ -80,5 +62,24 @@ public class RarbtProcessor implements PageProcessor {
     @Override
     public Site getSite() {
         return site;
+    }
+
+    @Override
+    public String runSpider() {
+        List<String> array = new ArrayList<>();
+        for (int pageIndex = 1; pageIndex <= 5; pageIndex++) {
+            array.add("http://www.rarbt.com/index.php/index/index/p/" + pageIndex + ".html");
+        }
+        String[] urls = array.toArray(new String[array.size()]);
+        RarbtProcessor rarbtProcessor = new RarbtProcessor();
+        OOSpider.create(rarbtProcessor)
+                .addUrl(urls)
+                .addPipeline(new JsonFilePipeline("D:\\data\\webmagic"))
+                .thread(5)
+                .run();
+        List<RowData> rowDataList = rarbtProcessor.getRowDataList().stream().sorted().collect(Collectors.toList());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        String fileName = "rarBt_" + sdf1.format(new Date());
+        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
     }
 }
