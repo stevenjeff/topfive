@@ -3,6 +3,8 @@ package com.fangrui.bean;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
+
 /**
  * @author zhangfangrui
  * @description
@@ -15,6 +17,7 @@ public class RowData implements Comparable<RowData> {
     private String rate;
     private String replyCnt;
     private String viewCnt;
+    private String createDate;
 
     public void setName(String name) throws Exception {
         if (StringUtils.isEmpty(name)) {

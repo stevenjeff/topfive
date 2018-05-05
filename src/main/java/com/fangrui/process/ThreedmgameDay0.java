@@ -1,5 +1,7 @@
 package com.fangrui.process;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.format.FastDateFormat;
 import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +35,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
             array.add("http://bbs.3dmgame.com/forum-game0day-" + pageIndex + ".html");
         }
         String[] urls = array.toArray(new String[array.size()]);
-        GameAli213Forum processor = new GameAli213Forum();
+        ThreedmgameDay0 processor = new ThreedmgameDay0();
         OOSpider.create(processor).addUrl(urls).addPipeline(new JsonFilePipeline("D:\\data\\webmagic")).thread(5).run();
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -59,6 +61,8 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
                     }
                     rowData.setName(name);
                     rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
+                    String  dateStr = node.xpath("//td[@class='by']/em/a/text()").toString();
+                    rowData.setCreateDate(dateStr);
                     rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
                     rowDataList.add(rowData);
                 } catch (Exception e) {
