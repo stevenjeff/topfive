@@ -1,5 +1,6 @@
 package com.fangrui.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,7 +18,8 @@ public class RowData implements Comparable<RowData> {
     private String rate;
     private String replyCnt;
     private String viewCnt;
-    private String createDate;
+    @JsonFormat(pattern = "YYYY-MM-DD HH:mm")
+    private Date createDate;
 
     public void setName(String name) throws Exception {
         if (StringUtils.isEmpty(name)) {

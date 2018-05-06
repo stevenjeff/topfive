@@ -30,7 +30,7 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
     }
 
     @Override
-    public String runSpider() {
+    public void runSpider() {
         List<String> array = new ArrayList<>();
         array.add("http://bbs.3dmgame.com/game0day");
         for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
@@ -42,7 +42,7 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        return CommonUtil.convertToJson(rowDataList, fileName, new String[]{"name", "href", "rate"});
+        CommonUtil.fileLog(fileName, rowDataList);
     }
 
     @Override

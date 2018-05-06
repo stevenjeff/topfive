@@ -1,5 +1,7 @@
 package com.fangrui.process;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -9,10 +11,7 @@ import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author zhangfangrui
@@ -24,7 +23,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     @Override
-    public void runSpider() throws Exception {
+    public void runSpider() {
         List<String> array = new ArrayList<>();
         array.add("http://bbs.3dmgame.com/game0day");
         for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
@@ -34,13 +33,22 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
         ThreedmgameDay0 processor = new ThreedmgameDay0();
         OOSpider.create(processor).addUrl(urls).thread(5).run();
         List<RowData> rowDataList = processor.getRowDataList();
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = "3dmDay0_" + sdf1.format(new Date());
+        if (!CollectionUtil.isEmpty(rowDataList)) {
+            Optional<RowData> rowDataOptional = rowDataList.stream().sorted(Comparator.comparing(RowData::getCreateDate)).findFirst();
+            Date oldestDate = rowDataOptional.map(RowData::getCreateDate).orElse(null);
+            if (oldestDate == null) {
+                return;
+            }
+            long betweenDay = DateUtil.betweenDay(oldestDate, new Date(), true) + 1;
+        }
+        String fileName = "3dmDay0_" + DateUtil.format(new Date(), "yyyy-MM-dd");
         CommonUtil.fileLog(fileName, rowDataList);
     }
 
     public static void main(String[] args) throws Exception {
-        new ThreedmgameDay0().runSpider();
+        long betweenDay = DateUtil.betweenDay(DateUtil.parse("2018-5-5", "yyyy-MM-dd"), new Date(), true);
+        System.out.println(betweenDay);
+//        new ThreedmgameDay0().runSpider();
     }
 
     @Override
@@ -58,7 +66,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
                     rowData.setName(name);
                     rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
                     String  dateStr = node.xpath("//td[@class='by']/em/a/text()").toString();
-                    rowData.setCreateDate(dateStr);
+                    rowData.setCreateDate((DateUtil.parse(dateStr, "yyyy-MM-dd HH:mm")));
                     rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
                     rowDataList.add(rowData);
                 } catch (Exception e) {

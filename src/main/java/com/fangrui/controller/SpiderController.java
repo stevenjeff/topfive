@@ -26,7 +26,7 @@ public class SpiderController {
     @GetMapping("/3dm")
     public Object get3DMData() throws Exception {
         if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY) == null) {
-            HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_KEY, spiderService.get3DMData());
+            spiderService.get3DMData();
         }
         return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY);
     }

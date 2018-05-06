@@ -20,7 +20,7 @@ public class SpiderServiceImpl implements SpiderService {
     }
 
     @Override
-    public void get3DMData() throws Exception {
+    public void get3DMData() {
         new ThreedmgameDay0().runSpider();
     }
 
