@@ -70,16 +70,18 @@ public class CommonUtil {
         fileLog(fileName, JSON.toJSONString(dataList));
     }
 
-    public static ArrayList getDateRangeList(Date oldestDate) {
+    public static ArrayList<Integer> getDateRangeList(Date oldestDate) {
         if (oldestDate == null) {
             return null;
         }
-        ArrayList dateRages = null;
+        ArrayList dateRages = new ArrayList<Integer>();
         DateTime dateTime = DateUtil.offsetDay(oldestDate, 7);
         DateTime now = DateTime.now();
-        while (dateTime.isBeforeOrEquals(now)) {
+        Integer interval = 7;
+        do {
+            dateRages.add(7);
             dateTime = DateUtil.offsetDay(dateTime, 7);
-        }
+        } while (dateTime.isBeforeOrEquals(now));
         return dateRages;
     }
 }
