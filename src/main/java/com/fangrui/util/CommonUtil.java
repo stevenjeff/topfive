@@ -1,5 +1,7 @@
 package com.fangrui.util;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 
@@ -7,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,5 +68,18 @@ public class CommonUtil {
 
     public static <T> void fileLog(String fileName, List<T> dataList) {
         fileLog(fileName, JSON.toJSONString(dataList));
+    }
+
+    public static ArrayList getDateRangeList(Date oldestDate) {
+        if (oldestDate == null) {
+            return null;
+        }
+        ArrayList dateRages = null;
+        DateTime dateTime = DateUtil.offsetDay(oldestDate, 7);
+        DateTime now = DateTime.now();
+        while (dateTime.isBeforeOrEquals(now)) {
+            dateTime = DateUtil.offsetDay(dateTime, 7);
+        }
+        return dateRages;
     }
 }
