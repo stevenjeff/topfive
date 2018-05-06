@@ -1,7 +1,5 @@
 package com.fangrui.process;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.date.format.FastDateFormat;
 import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +38,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
+        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "createDate", "href", "rate"});
     }
 
     public static void main(String[] args) {

@@ -7,6 +7,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">名称</th>
+                    <th scope="col">创建时间</th>
                     <th scope="col">点击率</th>
                     <th scope="col">链接</th>
                 </tr>
@@ -16,6 +17,7 @@
                     <tr v-for="(rowData,index) in pageData" :key="rowData">
                         <th scope="row">{{++index}}</th>
                         <td>{{rowData.name}}</td>
+                        <td>{{rowData.createDate}}</td>
                         <td>{{rowData.rate}}</td>
                         <td><a :href="rowData.href" target="_blank">打开</a></td>
                     </tr>
