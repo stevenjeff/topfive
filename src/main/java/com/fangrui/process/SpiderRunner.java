@@ -6,5 +6,5 @@ package com.fangrui.process;
  * @date 2018/5/3
  */
 public interface SpiderRunner {
-    String runSpider();
+    void runSpider() throws Exception;
 }

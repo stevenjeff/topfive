@@ -25,19 +25,44 @@ public class CommonUtil {
             if (dataList != null && dataList.size() > 10) {
                 topList = dataList.subList(0, 10);
             }
-            SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
-            if (propertyNames != null) {
-                for (String propertyName : propertyNames) {
-                    filter.getIncludes().add(propertyName);
-                }
-            }
-            jsonStr = JSON.toJSONString(topList, filter);
-            PrintWriter printWriter = new PrintWriter(new FileWriter(new File(fileName)));
-            printWriter.write(jsonStr);
-            printWriter.close();
-        } catch (IOException e) {
+            jsonStr = JSON.toJSONString(topList, getSimplePropertyPreFilter(propertyNames));
+            fileLog(fileName, jsonStr);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return jsonStr;
+    }
+
+    public static <T> String convertToJson(List<T> dataList, String fileName, String... propertyNames) {
+        String jsonStr = null;
+        try {
+            jsonStr = JSON.toJSONString(dataList, getSimplePropertyPreFilter(propertyNames));
+            fileLog(fileName, jsonStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonStr;
+    }
+
+    private static SimplePropertyPreFilter getSimplePropertyPreFilter(String[] propertyNames) {
+        SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+        if (propertyNames != null) {
+            for (String propertyName : propertyNames) {
+                filter.getIncludes().add(propertyName);
+            }
+        }
+        return filter;
+    }
+
+    private static void fileLog(String fileName, String jsonStr) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(new File(fileName)))) {
+            printWriter.write(jsonStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> void fileLog(String fileName, List<T> dataList) {
+        fileLog(fileName, JSON.toJSONString(dataList));
     }
 }

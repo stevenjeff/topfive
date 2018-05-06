@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
-import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
@@ -14,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author zhangfangrui
@@ -26,7 +24,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
 
     @Override
-    public String runSpider() {
+    public void runSpider() throws Exception {
         List<String> array = new ArrayList<>();
         array.add("http://bbs.3dmgame.com/game0day");
         for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
@@ -34,14 +32,14 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
         }
         String[] urls = array.toArray(new String[array.size()]);
         ThreedmgameDay0 processor = new ThreedmgameDay0();
-        OOSpider.create(processor).addUrl(urls).addPipeline(new JsonFilePipeline("D:\\data\\webmagic")).thread(5).run();
-        List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
+        OOSpider.create(processor).addUrl(urls).thread(5).run();
+        List<RowData> rowDataList = processor.getRowDataList();
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "createDate", "href", "rate"});
+        CommonUtil.fileLog(fileName, rowDataList);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new ThreedmgameDay0().runSpider();
     }
 

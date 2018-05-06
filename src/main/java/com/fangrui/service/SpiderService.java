@@ -6,9 +6,9 @@ package com.fangrui.service;
  * @date 2018/5/3
  */
 public interface SpiderService {
-    Object getAli213Data();
+    void getAli213Data() throws Exception;
 
-    Object get3DMData();
+    void get3DMData() throws Exception;
 
-    Object getRarBtData();
+    void getRarBtData() throws Exception;
 }

@@ -16,15 +16,15 @@ public class SpiderController {
     private SpiderService spiderService;
 
     @GetMapping("/ali213")
-    public Object triggerAli213() {
+    public Object getAli213Data() throws Exception {
         if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_ALI213_KEY) == null) {
-            HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_ALI213_KEY, spiderService.get3DMData());
+            spiderService.get3DMData();
         }
         return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY);
     }
 
     @GetMapping("/3dm")
-    public Object trigger3DM() {
+    public Object get3DMData() throws Exception {
         if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY) == null) {
             HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_KEY, spiderService.get3DMData());
         }

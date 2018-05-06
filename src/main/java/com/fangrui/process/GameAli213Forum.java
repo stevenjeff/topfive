@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
-import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
@@ -39,11 +38,11 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
         }
         String[] urls = array.toArray(new String[array.size()]);
         GameAli213Forum processor = new GameAli213Forum();
-        OOSpider.create(processor).addUrl(urls).addPipeline(new JsonFilePipeline("D:\\data\\webmagic")).thread(5).run();
+        OOSpider.create(processor).addUrl(urls).thread(5).run();
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "3dmDay0_" + sdf1.format(new Date());
-        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
+        return CommonUtil.convertToJson(rowDataList, fileName, new String[]{"name", "href", "rate"});
     }
 
     @Override

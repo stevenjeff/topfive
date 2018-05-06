@@ -64,7 +64,7 @@ public class RarbtProcessor implements PageProcessor, SpiderRunner {
     }
 
     @Override
-    public String runSpider() {
+    public void runSpider() {
         List<String> array = new ArrayList<>();
         for (int pageIndex = 1; pageIndex <= 5; pageIndex++) {
             array.add("http://www.rarbt.com/index.php/index/index/p/" + pageIndex + ".html");
@@ -79,6 +79,6 @@ public class RarbtProcessor implements PageProcessor, SpiderRunner {
         List<RowData> rowDataList = rarbtProcessor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = "rarBt_" + sdf1.format(new Date());
-        return CommonUtil.setTopList(rowDataList, fileName, 10, new String[]{"name", "href", "rate"});
+        CommonUtil.fileLog(fileName, rowDataList);
     }
 }
