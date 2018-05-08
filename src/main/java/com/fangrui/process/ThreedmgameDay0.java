@@ -3,6 +3,7 @@ package com.fangrui.process;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import com.fangrui.bean.RowData;
+import com.fangrui.cache.HutoolsTimedCache;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -39,7 +40,8 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
             if (oldestDate == null) {
                 return;
             }
-            long betweenDay = DateUtil.betweenDay(oldestDate, new Date(), true) + 1;
+            ArrayList<Integer> dateRangeList = CommonUtil.getDateRangeList(oldestDate);
+            HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_DATE_INTERVALS, dateRangeList);
         }
         String fileName = "3dmDay0_" + DateUtil.format(new Date(), "yyyy-MM-dd");
         CommonUtil.fileLog(fileName, rowDataList);

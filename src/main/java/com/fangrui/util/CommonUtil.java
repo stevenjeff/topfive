@@ -1,9 +1,12 @@
 package com.fangrui.util;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
+import com.fangrui.bean.RowData;
+import com.fangrui.cache.HutoolsTimedCache;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zhangfangrui
@@ -19,22 +23,22 @@ import java.util.List;
  * @date 2018/3/2
  */
 public class CommonUtil {
-    public static <T> String setTopList(List<T> dataList, String fileName, Integer topNum, String... propertyNames) {
-        String jsonStr = null;
+    public static final Integer TOP_NUM = 10;
+
+    public static List<RowData> getTopList(List<RowData> dataList, String fileName) {
+        List<RowData> topList = new ArrayList<>();
+        if (CollectionUtil.isEmpty(dataList)) {
+            return topList;
+        }
+        dataList = dataList.stream().sorted().collect(Collectors.toList());
         try {
-            if (null == topNum) {
-                topNum = 10;
+            if (dataList.size() > TOP_NUM) {
+                topList = dataList.subList(0, TOP_NUM);
             }
-            List<T> topList = dataList;
-            if (dataList != null && dataList.size() > 10) {
-                topList = dataList.subList(0, 10);
-            }
-            jsonStr = JSON.toJSONString(topList, getSimplePropertyPreFilter(propertyNames));
-            fileLog(fileName, jsonStr);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonStr;
+        return topList;
     }
 
     public static <T> String convertToJson(List<T> dataList, String fileName, String... propertyNames) {
@@ -78,10 +82,34 @@ public class CommonUtil {
         DateTime dateTime = DateUtil.offsetDay(oldestDate, 7);
         DateTime now = DateTime.now();
         Integer interval = 7;
+        Integer temp = interval;
         do {
-            dateRages.add(7);
-            dateTime = DateUtil.offsetDay(dateTime, 7);
+            dateRages.add(temp);
+            temp = temp + 7;
+            dateTime = DateUtil.offsetDay(dateTime, interval);
         } while (dateTime.isBeforeOrEquals(now));
         return dateRages;
+    }
+
+    public static void setRageData(List<RowData> rowDataList, ArrayList<Integer> dateRanges) {
+        if (dateRanges == null || rowDataList == null) {
+            return;
+        }
+        DateTime now = new DateTime();
+        dateRanges.stream().forEach(interval -> {
+            DateTime offsetDate = DateUtil.offsetDay(now, -interval);
+            List<RowData> rangeData = rowDataList.stream().filter(rowData -> {
+                return rowData.getCreateDate().after(offsetDate);
+            }).collect(Collectors.toList());
+            HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_DATE_INTERVAL_KEY + "_" + interval, rangeData);
+        });
+    }
+
+    public static void main(String[] args) {
+        int i = 0;
+        do {
+            i++;
+            System.out.println(i);
+        } while (i <= 7);
     }
 }
