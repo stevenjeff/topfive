@@ -36,6 +36,6 @@ public class SpiderController {
         if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY) == null) {
             spiderService.get3DMData();
         }
-        return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY);
+        return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_DATE_INTERVALS);
     }
 }

@@ -91,7 +91,7 @@ public class CommonUtil {
         return dateRages;
     }
 
-    public static void setRageData(List<RowData> rowDataList, ArrayList<Integer> dateRanges) {
+    public static void setRageData(List<RowData> rowDataList, ArrayList<Integer> dateRanges, String intervalKey) {
         if (dateRanges == null || rowDataList == null) {
             return;
         }
@@ -101,7 +101,7 @@ public class CommonUtil {
             List<RowData> rangeData = rowDataList.stream().filter(rowData -> {
                 return rowData.getCreateDate().after(offsetDate);
             }).sorted().collect(Collectors.toList());
-            HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_DATE_INTERVAL_KEY + "_" + interval, rangeData);
+            HutoolsTimedCache.timedCache.put(intervalKey + "_" + interval, rangeData);
         });
     }
 

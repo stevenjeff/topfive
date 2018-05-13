@@ -42,7 +42,7 @@ public class ThreedmgameDay0 implements PageProcessor, SpiderRunner {
             }
             ArrayList<Integer> dateRangeList = CommonUtil.getDateRangeList(oldestDate);
             HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_DATE_INTERVALS, dateRangeList);
-            CommonUtil.setRageData(rowDataList, dateRangeList);
+            CommonUtil.setRageData(rowDataList, dateRangeList, HutoolsTimedCache.CACHE_3DM_DATE_INTERVAL_KEY);
         }
         String fileName = "3dmDay0_" + DateUtil.format(new Date(), "yyyy-MM-dd");
         CommonUtil.fileLog(fileName, rowDataList);
