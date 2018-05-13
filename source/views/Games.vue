@@ -1,6 +1,14 @@
 <template>
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <h1>3DM</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">日期</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" v-model="selectedValue">
+                <option v-for="(rowData,index) in dateRange" :key="index" :value="rowData">近{{rowData}}天</option>
+            </select>
+        </div>
         <section>
             <table class="table table-striped table-dark">
                 <thead>
@@ -14,7 +22,7 @@
                 </thead>
                 <tbody>
                 <template v-if="pageData">
-                    <tr v-for="(rowData,index) in pageData" :key="rowData">
+                    <tr v-for="(rowData,index) in pageData" :key="index">
                         <th scope="row">{{++index}}</th>
                         <td>{{rowData.name}}</td>
                         <td>{{rowData.createDate}}</td>
@@ -32,13 +40,31 @@
         name: "Games",
         data: function () {
             return {
-                pageData: []
+                pageData: [],
+                dateRange: [],
+                selectedValue: 7
             };
         },
+        methods: {},
+        watch: {
+            selectedValue: function (value) {
+                console.log("/3dm/" + value);
+                this.$axios.get("/3dm/" + value).then(res => {
+                    console.log(res);
+                    this.pageData = res.data;
+                }).catch(error => console.log(error))
+            }
+        },
         created: function () {
-            this.$axios.get("/3dm").then(res => {
-                this.pageData = res.data;
-            }).catch(error => console.log(error))
+            this.$axios.get("/3dmDateRage").then(res => {
+                if (!res.data) {
+                    return;
+                }
+                this.dateRange = res.data;
+                this.$axios.get("/3dm/" + this.dateRange[0]).then(res => {
+                    this.pageData = res.data;
+                }).catch(error => console.log(error))
+            }).catch(error => console.log(error));
         }
     }
 </script>

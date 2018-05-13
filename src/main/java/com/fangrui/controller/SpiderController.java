@@ -18,7 +18,7 @@ public class SpiderController {
 
     @GetMapping("/ali213/{interval}")
     public Object getAli213Data(@PathVariable(name = "interval") Integer interval) throws Exception {
-        if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_ALI213_KEY) == null) {
+        if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_ALI213_DATE_INTERVALS) == null) {
             spiderService.get3DMData();
         }
         return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_ALI213_DATE_INTERVAL_KEY + "_" + interval);
@@ -34,7 +34,7 @@ public class SpiderController {
 
     @GetMapping("/3dm/{interval}")
     public Object get3DMData(@PathVariable(name = "interval") Integer interval) throws Exception {
-        if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY) == null) {
+        if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_DATE_INTERVALS) == null) {
             spiderService.get3DMData();
         }
         return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_DATE_INTERVAL_KEY + "_" + interval);

@@ -18,7 +18,7 @@ public class RowData implements Comparable<RowData> {
     private String rate;
     private String replyCnt;
     private String viewCnt;
-    @JsonFormat(pattern = "YYYY-MM-DD HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createDate;
 
     public void setName(String name) throws Exception {

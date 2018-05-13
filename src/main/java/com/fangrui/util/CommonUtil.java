@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class CommonUtil {
     public static final Integer TOP_NUM = 10;
 
-    public static List<RowData> getTopList(List<RowData> dataList, String fileName) {
+    public static List<RowData> getTopList(List<RowData> dataList) {
         List<RowData> topList = new ArrayList<>();
         if (CollectionUtil.isEmpty(dataList)) {
             return topList;
@@ -101,7 +101,8 @@ public class CommonUtil {
             List<RowData> rangeData = rowDataList.stream().filter(rowData -> {
                 return rowData.getCreateDate().after(offsetDate);
             }).sorted().collect(Collectors.toList());
-            HutoolsTimedCache.timedCache.put(intervalKey + "_" + interval, rangeData);
+
+            HutoolsTimedCache.timedCache.put(intervalKey + "_" + interval, getTopList(rangeData));
         });
     }
 
