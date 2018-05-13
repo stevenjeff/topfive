@@ -30,4 +30,12 @@ public class SpiderController {
         }
         return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY);
     }
+
+    @GetMapping("/3dmDateRage")
+    public Object get3DMDataRage() throws Exception {
+        if (HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY) == null) {
+            spiderService.get3DMData();
+        }
+        return HutoolsTimedCache.timedCache.get(HutoolsTimedCache.CACHE_3DM_KEY);
+    }
 }

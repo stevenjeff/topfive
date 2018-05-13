@@ -100,7 +100,7 @@ public class CommonUtil {
             DateTime offsetDate = DateUtil.offsetDay(now, -interval);
             List<RowData> rangeData = rowDataList.stream().filter(rowData -> {
                 return rowData.getCreateDate().after(offsetDate);
-            }).collect(Collectors.toList());
+            }).sorted().collect(Collectors.toList());
             HutoolsTimedCache.timedCache.put(HutoolsTimedCache.CACHE_3DM_DATE_INTERVAL_KEY + "_" + interval, rangeData);
         });
     }
