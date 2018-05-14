@@ -1,4 +1,4 @@
-import Home from '../views/Games.vue';
+import Home from '../views/GamesPage.vue';
 
 export const routes = [
     {
