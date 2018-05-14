@@ -1,5 +1,6 @@
 package com.fangrui.process;
 
+import cn.hutool.core.date.DateUtil;
 import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -32,16 +33,15 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
     @Override
     public void runSpider() {
         List<String> array = new ArrayList<>();
-        array.add("http://bbs.3dmgame.com/game0day");
-        for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
-            array.add("http://bbs.3dmgame.com/forum-game0day-" + pageIndex + ".html");
+        for (int pageIndex = 1; pageIndex <= 10; pageIndex++) {
+            array.add("http://game.ali213.net/forum-77-" + pageIndex + ".html");
         }
         String[] urls = array.toArray(new String[array.size()]);
         GameAli213Forum processor = new GameAli213Forum();
         OOSpider.create(processor).addUrl(urls).thread(5).run();
         List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = "3dmDay0_" + sdf1.format(new Date());
+        String fileName = "ali213_" + sdf1.format(new Date());
         CommonUtil.fileLog(fileName, rowDataList);
     }
 
@@ -53,13 +53,15 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
             for (Selectable node : nodes) {
                 try {
                     RowData rowData = new RowData();
-                    String name = node.xpath("//th[@class='new']/a[3]/text()").toString();
+                    String name = node.xpath("//th[@class='new']/a[1]/text()").toString();
                     if (StringUtils.isEmpty(name)) {
-                        name = node.xpath("//th[@class='common']/a[3]/text()").toString();
+                        name = node.xpath("//th[@class='common']/a[1]/text()").toString();
                     }
                     rowData.setName(name);
+                    String dateStr = node.xpath("//td[@class='by'][2]/em/span/text()").toString();
+                    rowData.setCreateDate((DateUtil.parse(dateStr, "yyyy-MM-dd")));
                     rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
-                    rowData.setHref("http://bbs.3dmgame.com/" + node.xpath("//td[@class='num']/a/@href").toString());
+                    rowData.setHref(node.xpath("//td[@class='num']/a/@href").toString());
                     rowDataList.add(rowData);
                 } catch (Exception e) {
                     e.printStackTrace();

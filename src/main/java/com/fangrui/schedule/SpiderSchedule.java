@@ -18,6 +18,11 @@ public class SpiderSchedule {
 
     @Scheduled(fixedRate = 60000)
     public void schedule_3dm() {
+        spiderService.get3DMData();
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void schedule_ali213() {
         spiderService.getAli213Data();
     }
 }
