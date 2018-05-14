@@ -1,5 +1,6 @@
 <template>
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="collapse tab-pane fade show active" id="multiCollapseExample1" role="tabpanel"
+         aria-labelledby="pills-home-tab">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">日期</label>
