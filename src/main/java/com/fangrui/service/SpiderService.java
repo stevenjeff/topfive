@@ -8,7 +8,8 @@ package com.fangrui.service;
 public interface SpiderService {
     void getAli213Data();
 
-    void get3DMData();
+    void get3dmData();
 
-    void getRarBtData();
+    void getRarbtData();
+
 }

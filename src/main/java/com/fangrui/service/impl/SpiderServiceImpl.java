@@ -20,12 +20,13 @@ public class SpiderServiceImpl implements SpiderService {
     }
 
     @Override
-    public void get3DMData() {
+    public void get3dmData() {
         new ThreedmgameDay0().runSpider();
     }
 
     @Override
-    public void getRarBtData() {
+    public void getRarbtData() {
         new RarbtProcessor().runSpider();
     }
+
 }

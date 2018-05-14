@@ -24,6 +24,11 @@ import java.util.stream.Collectors;
  */
 public class CommonUtil {
     public static final Integer TOP_NUM = 10;
+    public static final String CACHE_3DM_KEY = "3dm";
+    public static final String CACHE_ALI213_KEY = "ali213";
+    public static final String INTERVALS = "INTERVALS";
+    public static final String DATA = "data";
+    public static final String DATE_RANGE = "dataRange";
 
     public static List<RowData> getTopList(List<RowData> dataList) {
         List<RowData> topList = new ArrayList<>();
@@ -91,7 +96,7 @@ public class CommonUtil {
         return dateRages;
     }
 
-    public static void setRageData(List<RowData> rowDataList, ArrayList<Integer> dateRanges, String intervalKey) {
+    public static void setRageData(List<RowData> rowDataList, ArrayList<Integer> dateRanges, String siteName) {
         if (dateRanges == null || rowDataList == null) {
             return;
         }
@@ -102,7 +107,7 @@ public class CommonUtil {
                 return rowData.getCreateDate().after(offsetDate);
             }).sorted().collect(Collectors.toList());
 
-            HutoolsTimedCache.timedCache.put(intervalKey + "_" + interval, getTopList(rangeData));
+            HutoolsTimedCache.timedCache.put(siteName + interval, getTopList(rangeData));
         });
     }
 

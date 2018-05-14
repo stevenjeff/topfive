@@ -18,7 +18,7 @@ public class SpiderSchedule {
 
     @Scheduled(fixedRate = 60000)
     public void schedule_3dm() {
-        spiderService.get3DMData();
+        spiderService.get3dmData();
     }
 
     @Scheduled(fixedRate = 60000)

@@ -5,25 +5,17 @@ import com.fangrui.bean.RowData;
 import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.model.OOSpider;
-import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author zhangfangrui
  * @description
  * @date 2018/1/23
  */
-public class GameAli213Forum implements PageProcessor, SpiderRunner {
-    private List<RowData> rowDataList = new ArrayList<>();
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(95000);
+public class GameAli213Forum extends BaseProcessor {
 
     public static void main(String[] args) {
         GameAli213Forum gameAli213Forum = new GameAli213Forum();
@@ -36,13 +28,7 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
         for (int pageIndex = 1; pageIndex <= 10; pageIndex++) {
             array.add("http://game.ali213.net/forum-77-" + pageIndex + ".html");
         }
-        String[] urls = array.toArray(new String[array.size()]);
-        GameAli213Forum processor = new GameAli213Forum();
-        OOSpider.create(processor).addUrl(urls).thread(5).run();
-        List<RowData> rowDataList = processor.getRowDataList().stream().sorted().collect(Collectors.toList());
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = "ali213_" + sdf1.format(new Date());
-        CommonUtil.fileLog(fileName, rowDataList);
+        setGamesData(array, new GameAli213Forum(), CommonUtil.CACHE_ALI213_KEY);
     }
 
     @Override
@@ -62,24 +48,11 @@ public class GameAli213Forum implements PageProcessor, SpiderRunner {
                     rowData.setCreateDate((DateUtil.parse(dateStr, "yyyy-MM-dd")));
                     rowData.setRate(node.xpath("//td[@class='num']/em/text()").toString());
                     rowData.setHref(node.xpath("//td[@class='num']/a/@href").toString());
-                    rowDataList.add(rowData);
+                    this.getRowDataList().add(rowData);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-    }
-
-    public List<RowData> getRowDataList() {
-        return rowDataList;
-    }
-
-    public void setRowDataList(List<RowData> rowDataList) {
-        this.rowDataList = rowDataList;
-    }
-
-    @Override
-    public Site getSite() {
-        return site;
     }
 }
