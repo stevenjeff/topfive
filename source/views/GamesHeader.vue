@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
+    import * as types from '../vuex/types';
     export default {
         name: "GamesHeader",
         data: function () {
@@ -22,12 +24,17 @@
                 for (let i = 0; i < els.length; i++) {
                     console.log(els[i].getAttribute('id'));
                 }
+                alert(e.target.getAttribute("id"));
+                this.$axios.get("/games/" + e.target.getAttribute("id")).then(res => {
+                    this.gameKeys = res.data;
+                }).catch(error => console.log(error));
+                this.$emit("update:show", val);
             }
         },
         created: function () {
             this.$axios.get("/games/keys").then(res => {
                 this.gameKeys = res.data;
-            }).catch(error => console.log(error))
+            }).catch(error => console.log(error));
         }
     }
 </script>
