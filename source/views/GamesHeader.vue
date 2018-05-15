@@ -18,6 +18,10 @@
         methods: {
             buttonHandler: function (e) {
                 let els = this.$refs.btnGroup.querySelectorAll('button');
+                alert(els);
+                for (let i = 0; i < els.length; i++) {
+                    console.log(els[i].getAttribute('id'));
+                }
             }
         },
         created: function () {
