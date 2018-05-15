@@ -16,14 +16,18 @@ const getters = {
 
 const mutations = {
     [types.MUTATE_DATA_GAMES]: (state, payload) => {
+        if (payload.dateRange) {
+            state.dateRange = payload.dateRange;
+        }
         state.pageData = payload.pageData;
-        state.dateRange = payload.dateRange;
     }
 };
 
 const actions = {
     [types.ACTION_GAMES_DATA_CHANGE]: ({commit}, payload) => {
-        commit(types.MUTATE_DATA_GAMES, payload);
+        this.$axios.get("/games/" + payload).then(res => {
+            this.commit(types.MUTATE_DATA_GAMES, res.data)
+        }).catch(error => console.log(error));
     }
 };
 

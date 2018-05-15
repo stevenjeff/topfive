@@ -1,6 +1,6 @@
 <template>
     <p ref="btnGroup">
-        <button v-for="key in gameKeys" :id="key" class="btn btn-primary" type="button" data-toggle="collapse"
+        <button v-for="key in gameKeys" :c="key" class="btn btn-primary" type="button" data-toggle="collapse"
                 aria-expanded="false" :key="key" @click="buttonHandler($event)">
             {{key}}
         </button>
@@ -9,6 +9,7 @@
 
 <script>
     import {mapActions} from 'vuex';
+    import store from '../vuex/store';
     import * as types from '../vuex/types';
     export default {
         name: "GamesHeader",
@@ -25,10 +26,7 @@
                     console.log(els[i].getAttribute('id'));
                 }
                 alert(e.target.getAttribute("id"));
-                this.$axios.get("/games/" + e.target.getAttribute("id")).then(res => {
-                    this.gameKeys = res.data;
-                }).catch(error => console.log(error));
-                this.$emit("update:show", val);
+                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, e.target.getAttribute("id"));
             }
         },
         created: function () {
