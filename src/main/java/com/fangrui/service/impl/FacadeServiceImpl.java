@@ -3,15 +3,17 @@ package com.fangrui.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fangrui.cache.HutoolsTimedCache;
+import com.fangrui.config.ConstVariable;
 import com.fangrui.service.FacadeService;
 import com.fangrui.service.SpiderService;
-import com.fangrui.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author zhangfangrui
@@ -24,19 +26,24 @@ public class FacadeServiceImpl implements FacadeService {
     private SpiderService spiderService;
 
     @Override
+    public List<String> getGameKeys() {
+        return Arrays.asList(ConstVariable.GAME_KEYS);
+    }
+
+    @Override
     public Object getGamesData(Integer interval, String gameSite) throws Exception {
         if (interval == null || StringUtils.isEmpty(gameSite)) {
             interval = 7;
-            gameSite = CommonUtil.CACHE_ALI213_KEY;
+            gameSite = ConstVariable.CACHE_ALI213_KEY;
         }
-        if (HutoolsTimedCache.timedCache.get(gameSite + CommonUtil.INTERVALS) == null) {
+        if (HutoolsTimedCache.timedCache.get(gameSite + ConstVariable.INTERVALS) == null) {
             spiderService.getAli213Data();
         }
         Method dataMethod = ClassUtil.getPublicMethod(spiderService.getClass(), "get" + StringUtils.capitalize(gameSite) + "Data");
         dataMethod.invoke(spiderService);
         HashMap<Object, Object> map = CollectionUtil.newHashMap(2);
-        map.put(CommonUtil.DATA, HutoolsTimedCache.timedCache.get(gameSite + interval));
-        map.put(CommonUtil.INTERVALS, HutoolsTimedCache.timedCache.get(gameSite + CommonUtil.INTERVALS));
+        map.put(ConstVariable.DATA, HutoolsTimedCache.timedCache.get(gameSite + interval));
+        map.put(ConstVariable.INTERVALS, HutoolsTimedCache.timedCache.get(gameSite + ConstVariable.INTERVALS));
         return map;
     }
 }

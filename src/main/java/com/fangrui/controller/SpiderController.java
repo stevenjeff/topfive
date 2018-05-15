@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by zhangfangrui on 2018/2/25.
  */
@@ -18,6 +20,11 @@ public class SpiderController {
 
     @Autowired
     private FacadeService facadeService;
+
+    @GetMapping("/games/keys")
+    public List<String> getGamesKey() throws Exception {
+        return facadeService.getGameKeys();
+    }
 
     @GetMapping("/games/{gameSite}/{interval}")
     public Object getGamesData(@PathVariable(name = "interval") Integer interval, @PathVariable(name = "gameSite") String gameSite) throws Exception {

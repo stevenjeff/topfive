@@ -38,11 +38,9 @@
 <script>
     export default {
         name: "Games",
+        props: ['pageData', 'dateRange', 'selectedValue'],
         data: function () {
             return {
-                pageData: [],
-                dateRange: [],
-                selectedValue: 7
             };
         },
         methods: {},

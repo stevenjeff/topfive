@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.fangrui.bean.RowData;
 import com.fangrui.cache.HutoolsTimedCache;
+import com.fangrui.config.ConstVariable;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,12 +24,6 @@ import java.util.stream.Collectors;
  * @date 2018/3/2
  */
 public class CommonUtil {
-    public static final Integer TOP_NUM = 10;
-    public static final String CACHE_3DM_KEY = "3dm";
-    public static final String CACHE_ALI213_KEY = "ali213";
-    public static final String INTERVALS = "INTERVALS";
-    public static final String DATA = "data";
-    public static final String DATE_RANGE = "dataRange";
 
     public static List<RowData> getTopList(List<RowData> dataList) {
         List<RowData> topList = new ArrayList<>();
@@ -37,8 +32,8 @@ public class CommonUtil {
         }
         dataList = dataList.stream().sorted().collect(Collectors.toList());
         try {
-            if (dataList.size() > TOP_NUM) {
-                topList = dataList.subList(0, TOP_NUM);
+            if (dataList.size() > ConstVariable.TOP_NUM) {
+                topList = dataList.subList(0, ConstVariable.TOP_NUM);
             }
         } catch (Exception e) {
             e.printStackTrace();

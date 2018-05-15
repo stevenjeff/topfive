@@ -12,7 +12,12 @@
 <script>
     export default {
         name: "GamesHeader",
-        methods: {}
+        methods: {},
+        created: function () {
+            this.$axios.get("/3dm/" + value).then(res => {
+                this.pageData = res.data;
+            }).catch(error => console.log(error))
+        }
     }
 </script>
 

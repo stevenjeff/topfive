@@ -3,6 +3,7 @@ package com.fangrui.process;
 import cn.hutool.core.collection.CollectionUtil;
 import com.fangrui.bean.RowData;
 import com.fangrui.cache.HutoolsTimedCache;
+import com.fangrui.config.ConstVariable;
 import com.fangrui.util.CommonUtil;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
@@ -45,7 +46,7 @@ public abstract class BaseProcessor implements PageProcessor, SpiderRunner {
                 return;
             }
             ArrayList<Integer> dateRangeList = CommonUtil.getDateRangeList(oldestDate);
-            HutoolsTimedCache.timedCache.put(siteName + CommonUtil.INTERVALS, dateRangeList);
+            HutoolsTimedCache.timedCache.put(siteName + ConstVariable.INTERVALS, dateRangeList);
             CommonUtil.setRageData(rowDataList, dateRangeList, siteName);
         }
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");

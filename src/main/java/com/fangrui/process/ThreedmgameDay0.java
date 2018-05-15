@@ -2,7 +2,7 @@ package com.fangrui.process;
 
 import cn.hutool.core.date.DateUtil;
 import com.fangrui.bean.RowData;
-import com.fangrui.util.CommonUtil;
+import com.fangrui.config.ConstVariable;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.selector.Selectable;
@@ -25,7 +25,7 @@ public class ThreedmgameDay0 extends BaseProcessor {
         for (int pageIndex = 2; pageIndex <= 10; pageIndex++) {
             array.add("http://bbs.3dmgame.com/forum-game0day-" + pageIndex + ".html");
         }
-        setGamesData(array, new ThreedmgameDay0(), CommonUtil.CACHE_3DM_KEY);
+        setGamesData(array, new ThreedmgameDay0(), ConstVariable.CACHE_3DM_KEY);
     }
 
     public static void main(String[] args) throws Exception {
