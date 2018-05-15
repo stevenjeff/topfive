@@ -1,10 +1,8 @@
 <template>
-    <p>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1"
-                aria-controls="multiCollapseExample2" aria-expanded="false">Toggle first element
-        </button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
-                aria-controls="multiCollapseExample1" aria-expanded="false">Toggle second element
+    <p ref="btnGroup">
+        <button v-for="key in gameKeys" :id="key" class="btn btn-primary" type="button" data-toggle="collapse"
+                aria-expanded="false" :key="key" @click="buttonHandler($event)">
+            {{key}}
         </button>
     </p>
 </template>
@@ -12,10 +10,19 @@
 <script>
     export default {
         name: "GamesHeader",
-        methods: {},
+        data: function () {
+            return {
+                gameKeys: []
+            };
+        },
+        methods: {
+            buttonHandler: function (e) {
+                let els = this.$refs.btnGroup.querySelectorAll('button');
+            }
+        },
         created: function () {
-            this.$axios.get("/3dm/" + value).then(res => {
-                this.pageData = res.data;
+            this.$axios.get("/games/keys").then(res => {
+                this.gameKeys = res.data;
             }).catch(error => console.log(error))
         }
     }
