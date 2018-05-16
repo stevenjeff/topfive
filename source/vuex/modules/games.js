@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
     [types.ACTION_GAMES_DATA_CHANGE]: ({commit}, payload) => {
         this.$axios.get("/games/" + payload).then(res => {
-            this.commit(types.MUTATE_DATA_GAMES, res.data)
+            commit(types.MUTATE_DATA_GAMES, res.data)
         }).catch(error => console.log(error));
     }
 };

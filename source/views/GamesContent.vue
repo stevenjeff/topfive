@@ -36,12 +36,20 @@
     </div>
 </template>
 <script>
+    import {mapGetters} from 'vuex';
+    import * as types from '../vuex/types';
     export default {
         name: "Games",
         props: ['pageData', 'dateRange', 'selectedValue'],
         data: function () {
             return {
             };
+        },
+        computed: {
+            ...mapGetters({
+                dateRange: types.PAGE_DATE_GETTER,
+                pageData: types.DATE_RANGE_GETTER
+            })
         },
         methods: {},
         watch: {

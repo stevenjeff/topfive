@@ -1,6 +1,6 @@
 // Getters
-export const DOUBLE_GAMES = 'games/DOUBLE_ALI213';
-export const CLICK_GAMES = 'games/CLICK_ALI213';
+export const PAGE_DATE_GETTER = 'games/PAGE_DATE';
+export const DATE_RANGE_GETTER = 'games/DATE_RANGE';
 
 // Mutations
 export const MUTATE_DATA_GAMES = 'games/MUTATE_DATA_GAMES';
