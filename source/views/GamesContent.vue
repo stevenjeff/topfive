@@ -40,7 +40,6 @@
     import * as types from '../vuex/types';
     export default {
         name: "Games",
-        props: ['pageData', 'dateRange', 'selectedValue'],
         data: function () {
             return {
             };
