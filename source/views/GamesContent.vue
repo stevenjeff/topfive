@@ -37,6 +37,7 @@
 </template>
 <script>
     import {mapGetters} from 'vuex';
+    import {store} from '../vuex/store';
     import * as types from '../vuex/types';
     export default {
         name: "Games",
@@ -53,23 +54,10 @@
         methods: {},
         watch: {
             selectedValue: function (value) {
-                console.log("/3dm/" + value);
-                this.$axios.get("/3dm/" + value).then(res => {
-                    console.log(res);
-                    this.pageData = res.data;
-                }).catch(error => console.log(error))
+                var payLoad = new Object();
+                payload.key =;
+                payload.store.dispatch(types.ACTION_GAMES_DATA_CHANGE)
             }
-        },
-        created: function () {
-            this.$axios.get("/3dmDateRage").then(res => {
-                if (!res.data) {
-                    return;
-                }
-                this.dateRange = res.data;
-                this.$axios.get("/3dm/" + this.dateRange[0]).then(res => {
-                    this.pageData = res.data;
-                }).catch(error => console.log(error))
-            }).catch(error => console.log(error));
         }
     }
 </script>

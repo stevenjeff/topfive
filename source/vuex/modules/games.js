@@ -6,11 +6,11 @@ const state = {
 };
 
 const getters = {
-    [types.DOUBLE_ALI213]: state => {
-        return state.counter * 2;
+    [types.PAGE_DATE_GETTER]: state => {
+        return state.pageData;
     },
-    [types.CLICK_ALI213]: state => {
-        return state.counter + ' Clicks';
+    [types.MUTATE_DATA_GAMES]: state => {
+        return state.dateRange;
     }
 };
 
@@ -24,8 +24,15 @@ const mutations = {
 };
 
 const actions = {
+    [types.ACTION_GAMES_INIT_KEYS]: ({commit}, payload) => {
+        this.$axios.get("/games/keys").then(res => {
+            commit(types.MUTATE_KEYS_GAMES, res.data)
+        }).catch(error => console.log(error));
+    },
     [types.ACTION_GAMES_DATA_CHANGE]: ({commit}, payload) => {
-        this.$axios.get("/games/" + payload).then(res => {
+        let gameSite = payload.key;
+        let interval = payload.interval;
+        this.$axios.get("/games/" + gameSite + "/" + interval).then(res => {
             commit(types.MUTATE_DATA_GAMES, res.data)
         }).catch(error => console.log(error));
     }

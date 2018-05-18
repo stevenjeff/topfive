@@ -26,7 +26,7 @@
                     console.log(els[i].getAttribute('id'));
                 }
                 alert(e.target.getAttribute("id"));
-                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, e.target.getAttribute("id"));
+                store.dispatch(types.ACTION_GAMES_INIT_KEYS, e.target.getAttribute("id"));
             }
         },
         created: function () {
