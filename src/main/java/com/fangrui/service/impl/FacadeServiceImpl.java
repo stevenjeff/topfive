@@ -37,10 +37,9 @@ public class FacadeServiceImpl implements FacadeService {
             gameSite = ConstVariable.CACHE_ALI213_KEY;
         }
         if (HutoolsTimedCache.timedCache.get(gameSite + ConstVariable.INTERVALS) == null) {
-            spiderService.getAli213Data();
+            Method dataMethod = ClassUtil.getPublicMethod(spiderService.getClass(), "get" + StringUtils.capitalize(gameSite) + "Data");
+            dataMethod.invoke(spiderService);
         }
-        Method dataMethod = ClassUtil.getPublicMethod(spiderService.getClass(), "get" + StringUtils.capitalize(gameSite) + "Data");
-        dataMethod.invoke(spiderService);
         HashMap<Object, Object> map = CollectionUtil.newHashMap(2);
         map.put(ConstVariable.DATA, HutoolsTimedCache.timedCache.get(gameSite + interval));
         map.put(ConstVariable.INTERVALS, HutoolsTimedCache.timedCache.get(gameSite + ConstVariable.INTERVALS));

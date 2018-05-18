@@ -28,8 +28,12 @@
             })
         },
         methods: {
-            gameSiteChangeHandle(key) {
-                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, key);
+            gameSiteChangeHandle(siteName) {
+                let payload = {
+                    key: siteName,
+                    interval: 7
+                };
+                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, payload);
             }
         },
         created: function () {

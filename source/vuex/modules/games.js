@@ -20,10 +20,10 @@ const getters = {
 
 const mutations = {
     [types.MUTATE_DATA_GAMES]: (state, payload) => {
-        if (payload.dateRange) {
-            state.dateRange = payload.dateRange;
+        if (payload.intervals) {
+            state.dateRange = payload.intervals;
         }
-        state.pageData = payload.pageData;
+        state.pageData = payload.data;
     },
     [types.MUTATE_KEYS_GAMES]: (state, payload) => {
         state.keys = payload;

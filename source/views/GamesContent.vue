@@ -48,8 +48,8 @@
         },
         computed: {
             ...mapGetters({
-                dateRange: types.PAGE_DATA_GETTER,
-                pageData: types.DATE_RANGE_GETTER
+                dateRange: types.DATE_RANGE_GETTER,
+                pageData: types.PAGE_DATA_GETTER
             })
         },
         methods: {},
