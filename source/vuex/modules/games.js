@@ -1,6 +1,7 @@
 import * as types from '../types';
 import {axiosCon} from '../../config/axiosConfig';
 const state = {
+    site: '',
     pageData: [],
     dateRange: [],
     keys: []
@@ -15,6 +16,9 @@ const getters = {
     },
     [types.DATA_KEYS_GETTER]: state => {
         return state.keys;
+    },
+    [types.SITE_CHANGE_GETTER]: state => {
+        return state.site;
     }
 };
 
@@ -27,6 +31,9 @@ const mutations = {
     },
     [types.MUTATE_KEYS_GAMES]: (state, payload) => {
         state.keys = payload;
+    },
+    [types.MUTATE_SITE_CHANGE]: (state, payload) => {
+        state.site = payload;
     }
 };
 

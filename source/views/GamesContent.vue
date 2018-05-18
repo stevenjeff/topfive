@@ -55,9 +55,11 @@
         methods: {},
         watch: {
             selectedValue: function (value) {
-                var payLoad = new Object();
-                payload.key = value;
-                payload.store.dispatch(types.ACTION_GAMES_DATA_CHANGE)
+                var payLoad = {
+                    key: value,
+                    interval: value
+                };
+                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, payload)
             }
         }
     }
