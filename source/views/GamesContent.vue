@@ -43,11 +43,12 @@
         name: "Games",
         data: function () {
             return {
+                selectedValue: 7
             };
         },
         computed: {
             ...mapGetters({
-                dateRange: types.PAGE_DATE_GETTER,
+                dateRange: types.PAGE_DATA_GETTER,
                 pageData: types.DATE_RANGE_GETTER
             })
         },
@@ -55,7 +56,7 @@
         watch: {
             selectedValue: function (value) {
                 var payLoad = new Object();
-                payload.key =;
+                payload.key = value;
                 payload.store.dispatch(types.ACTION_GAMES_DATA_CHANGE)
             }
         }

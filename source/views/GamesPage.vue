@@ -1,6 +1,7 @@
 <template>
-    <div class="row">
+    <div class="container">
         <app-games-header></app-games-header>
+        <br/>
         <app-games-content></app-games-content>
     </div>
 </template>

@@ -1,10 +1,14 @@
 <template>
-    <p ref="btnGroup">
-        <button v-for="key in gameKeys" class="btn btn-primary" type="button" data-toggle="collapse"
-                aria-expanded="false" :key="key" @click="buttonHandler($event)">
-            {{key}}
-        </button>
-    </p>
+    <section>
+        <div ref="btnGroup" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label v-for="(key,index) in gameKeys" :key="key"
+                   v-bind:class="{'btn':true,'btn-secondary':true,'active':index==0}">
+                <input :id="key" @click="buttonHandler($event)" aria-expanded="false" type="radio" name="options"
+                       data-toggle="collapse" autocomplete="off" checked> {{key}}
+            </label>
+        </div>
+        <br/>
+    </section>
 </template>
 
 <script>

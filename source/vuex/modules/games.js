@@ -1,5 +1,5 @@
 import * as types from '../types';
-
+import {axiosCon} from '../../config/axiosConfig';
 const state = {
     pageData: [],
     dateRange: [],
@@ -7,10 +7,10 @@ const state = {
 };
 
 const getters = {
-    [types.PAGE_DATE_GETTER]: state => {
+    [types.PAGE_DATA_GETTER]: state => {
         return state.pageData;
     },
-    [types.MUTATE_DATA_GAMES]: state => {
+    [types.DATE_RANGE_GETTER]: state => {
         return state.dateRange;
     },
     [types.DATA_KEYS_GETTER]: state => {
@@ -32,7 +32,8 @@ const mutations = {
 
 const actions = {
     [types.ACTION_GAMES_INIT_KEYS]: ({commit}, payload) => {
-        this.$axios.get("/games/keys").then(res => {
+        console.log("-------------:" + this);
+        axiosCon.get("/games/keys").then(res => {
             commit(types.MUTATE_KEYS_GAMES, res.data)
         }).catch(error => console.log(error));
     },
@@ -45,7 +46,8 @@ const actions = {
         if (!gameSite) {
             gameSite = "ali213";
         }
-        this.$axios.get("/games/" + gameSite + "/" + interval).then(res => {
+        console.log("-------------:" + this);
+        axiosCon.get("/games/" + gameSite + "/" + interval).then(res => {
             commit(types.MUTATE_DATA_GAMES, res.data)
         }).catch(error => console.log(error));
     }
