@@ -33,11 +33,19 @@
                     key: siteName,
                     interval: 7
                 };
+                store.commit(types.MUTATE_SITE_CHANGE, siteName);
                 store.dispatch(types.ACTION_GAMES_DATA_CHANGE, payload);
             }
         },
         created: function () {
             store.dispatch(types.ACTION_GAMES_INIT_KEYS);
+            let siteName = "3dm";
+            let payload = {
+                key: siteName,
+                interval: 7
+            };
+            store.commit(types.MUTATE_SITE_CHANGE, siteName);
+            store.dispatch(types.ACTION_GAMES_DATA_CHANGE, payload);
         }
     }
 </script>

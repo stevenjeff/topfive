@@ -49,14 +49,15 @@
         computed: {
             ...mapGetters({
                 dateRange: types.DATE_RANGE_GETTER,
-                pageData: types.PAGE_DATA_GETTER
+                pageData: types.PAGE_DATA_GETTER,
+                site: types.SITE_CHANGE_GETTER
             })
         },
         methods: {},
         watch: {
             selectedValue: function (value) {
-                var payLoad = {
-                    key: value,
+                let payload = {
+                    key: this.site,
                     interval: value
                 };
                 store.dispatch(types.ACTION_GAMES_DATA_CHANGE, payload)
