@@ -33,9 +33,7 @@
             }
         },
         created: function () {
-            this.$axios.get("/games/keys").then(res => {
-                this.gameKeys = res.data;
-            }).catch(error => console.log(error));
+            store.dispatch(types.ACTION_GAMES_INIT_KEYS);
         }
     }
 </script>
