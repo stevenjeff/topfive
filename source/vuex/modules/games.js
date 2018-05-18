@@ -32,7 +32,6 @@ const mutations = {
 
 const actions = {
     [types.ACTION_GAMES_INIT_KEYS]: ({commit}, payload) => {
-        console.log("-------------:" + this);
         axiosCon.get("/games/keys").then(res => {
             commit(types.MUTATE_KEYS_GAMES, res.data)
         }).catch(error => console.log(error));
@@ -46,7 +45,6 @@ const actions = {
         if (!gameSite) {
             gameSite = "ali213";
         }
-        console.log("-------------:" + this);
         axiosCon.get("/games/" + gameSite + "/" + interval).then(res => {
             commit(types.MUTATE_DATA_GAMES, res.data)
         }).catch(error => console.log(error));

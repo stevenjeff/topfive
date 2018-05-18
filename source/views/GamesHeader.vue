@@ -1,10 +1,10 @@
 <template>
     <section>
         <div ref="btnGroup" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label v-for="(key,index) in gameKeys" :key="key"
+            <label v-for="(key,index) in gameKeys" @click="gameSiteChangeHandle(key)"
                    v-bind:class="{'btn':true,'btn-secondary':true,'active':index==0}">
-                <input :id="key" @click="buttonHandler($event)" aria-expanded="false" type="radio" name="options"
-                       data-toggle="collapse" autocomplete="off" checked> {{key}}
+                <input :id="key" aria-expanded="false" type="radio" name="options"
+                       data-toggle="collapse" autocomplete="off" :checked="index==0" :key="key"/> {{key}}
             </label>
         </div>
         <br/>
@@ -28,12 +28,8 @@
             })
         },
         methods: {
-            buttonHandler: function (e) {
-                let els = this.$refs.btnGroup.querySelectorAll('button');
-                for (let i = 0; i < els.length; i++) {
-                    console.log(els[i].getAttribute('id'));
-                }
-                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, e.target.getAttribute("id"));
+            gameSiteChangeHandle(key) {
+                store.dispatch(types.ACTION_GAMES_DATA_CHANGE, key);
             }
         },
         created: function () {
