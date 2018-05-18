@@ -1,6 +1,7 @@
 // Getters
 export const PAGE_DATE_GETTER = 'games/PAGE_DATE';
 export const DATE_RANGE_GETTER = 'games/DATE_RANGE';
+export const DATA_KEYS_GETTER = 'games/DATA_KEYS_GETTER';
 
 // Mutations
 export const MUTATE_DATA_GAMES = 'games/MUTATE_DATA_GAMES';

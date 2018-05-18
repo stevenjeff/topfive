@@ -2,7 +2,8 @@ import * as types from '../types';
 
 const state = {
     pageData: [],
-    dateRange: []
+    dateRange: [],
+    keys: []
 };
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
     },
     [types.MUTATE_DATA_GAMES]: state => {
         return state.dateRange;
+    },
+    [types.DATA_KEYS_GETTER]: state => {
+        return state.keys;
     }
 };
 
@@ -20,6 +24,9 @@ const mutations = {
             state.dateRange = payload.dateRange;
         }
         state.pageData = payload.pageData;
+    },
+    [types.MUTATE_KEYS_GAMES]: (state, payload) => {
+        state.keys = payload;
     }
 };
 
@@ -32,6 +39,12 @@ const actions = {
     [types.ACTION_GAMES_DATA_CHANGE]: ({commit}, payload) => {
         let gameSite = payload.key;
         let interval = payload.interval;
+        if (!interval) {
+            interval = 7;
+        }
+        if (!gameSite) {
+            gameSite = "ali213";
+        }
         this.$axios.get("/games/" + gameSite + "/" + interval).then(res => {
             commit(types.MUTATE_DATA_GAMES, res.data)
         }).catch(error => console.log(error));
