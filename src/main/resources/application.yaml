@@ -1,6 +1,20 @@
 spring:
+  jpa:
+    show-sql: true
+    database: HSQL
+    hibernate:
+      ddl-auto: update
   cache:
     cache-names: ali213Cache,3dmCache,rarBtCache
     type: caffeine
     caffeine:
       spec: maximumSize=999999,expireAfterAccess=24h
+  datasource:
+    driver-class-name: org.hsqldb.jdbcDriver
+    url: jdbc:hsqldb:file:./data/database
+    username: sa
+    password:
+    dbcp2:
+      initial-size: 100
+    tomcat:
+      max-active: 100
