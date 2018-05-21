@@ -1,4 +1,4 @@
-package com.fangrui.entity;
+package com.fangrui.domain;
 
 import lombok.EqualsAndHashCode;
 

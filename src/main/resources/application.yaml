@@ -4,6 +4,10 @@ spring:
     database: HSQL
     hibernate:
       ddl-auto: update
+  data:
+    jpa.repositories.enabled: true
+    rest:
+      base-path: /api
   cache:
     cache-names: ali213Cache,3dmCache,rarBtCache
     type: caffeine
@@ -14,7 +18,3 @@ spring:
     url: jdbc:hsqldb:file:./data/database
     username: sa
     password:
-    dbcp2:
-      initial-size: 100
-    tomcat:
-      max-active: 100

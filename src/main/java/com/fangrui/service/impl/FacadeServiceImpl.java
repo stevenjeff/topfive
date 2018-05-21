@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fangrui.cache.HutoolsTimedCache;
 import com.fangrui.config.ConstVariable;
+import com.fangrui.repository.ResourceRepository;
 import com.fangrui.service.FacadeService;
 import com.fangrui.service.SpiderService;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,7 @@ import java.util.List;
 public class FacadeServiceImpl implements FacadeService {
     @Autowired
     private SpiderService spiderService;
+    private ResourceRepository resourceRepository;
 
     @Override
     public List<String> getGameKeys() {
