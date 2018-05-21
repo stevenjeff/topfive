@@ -8,6 +8,7 @@ spring:
     jpa.repositories.enabled: true
     rest:
       base-path: /api
+      detection-strategy: annotated
   cache:
     cache-names: ali213Cache,3dmCache,rarBtCache
     type: caffeine

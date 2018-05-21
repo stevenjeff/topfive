@@ -16,12 +16,12 @@ public class SpiderSchedule {
     @Autowired
     private SpiderService spiderService;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 60000 * 60)
     public void schedule_3dm() {
         spiderService.get3dmData();
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 60000 * 60)
     public void schedule_ali213() {
         spiderService.getAli213Data();
     }

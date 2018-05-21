@@ -17,7 +17,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
-        <spring-data.version>Kay-SR2</spring-data.version>
+        <spring-data.version>Lovelace-M3</spring-data.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>

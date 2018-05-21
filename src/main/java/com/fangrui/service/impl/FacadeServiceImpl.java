@@ -25,6 +25,7 @@ import java.util.List;
 public class FacadeServiceImpl implements FacadeService {
     @Autowired
     private SpiderService spiderService;
+    @Autowired
     private ResourceRepository resourceRepository;
 
     @Override
