@@ -4,11 +4,14 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fangrui.cache.HutoolsTimedCache;
 import com.fangrui.config.ConstVariable;
+import com.fangrui.domain.Resource;
 import com.fangrui.repository.ResourceRepository;
 import com.fangrui.service.FacadeService;
 import com.fangrui.service.SpiderService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
@@ -23,6 +26,7 @@ import java.util.List;
  */
 @Service
 public class FacadeServiceImpl implements FacadeService {
+
     @Autowired
     private SpiderService spiderService;
     @Autowired
@@ -47,5 +51,15 @@ public class FacadeServiceImpl implements FacadeService {
         map.put(ConstVariable.DATA, HutoolsTimedCache.timedCache.get(gameSite + interval));
         map.put(ConstVariable.INTERVALS, HutoolsTimedCache.timedCache.get(gameSite + ConstVariable.INTERVALS));
         return map;
+    }
+
+    @Override
+    public Resource addResource(Resource resource) {
+        return resourceRepository.save(resource);
+    }
+
+    @Override
+    public Page<Resource> getResourcePage(Pageable pageable) {
+        return (Page<Resource>) resourceRepository.findAll(pageable);
     }
 }
