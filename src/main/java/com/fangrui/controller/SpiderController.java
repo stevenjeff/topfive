@@ -42,6 +42,7 @@ public class SpiderController {
         return false;
     }
 
+    @GetMapping("/resourcePage")
     public Page<Resource> getResourcePage(Pageable pageable) {
         return facadeService.getResourcePage(pageable);
     }

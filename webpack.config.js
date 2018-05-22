@@ -3,12 +3,16 @@ const path = require('path');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const extractCss = new ExtractTextWebpackPlugin("css/[name].css");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dir = "D:/intelijworkspace/topfive";
 module.exports = {
     //2、进出口文件配置
-    entry: __dirname + '/source/index.js',//指定的入口文件,“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+    entry: {
+        index: path.resolve(dir, 'D:/intelijworkspace/topfive/source/index.js')
+    },
     output: {//输出
         path: __dirname + '/build',//输出路径
-        filename: 'bundle.js'//输出文件名
+        filename: '[name].[hash:8].js',//输出文件名
+        chunkFilename: '[name].[hash:8].js'
     },
     module: {//在配置文件里添加加载器说明，指明每种文件需要什么加载器处理
         rules: [
@@ -29,7 +33,10 @@ module.exports = {
             },
             {//5、编译es6配置
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: [
+                    path.join(__dirname, '/node_modules'),
+                    path.join(__dirname, '/source/js/')
+                ],
                 loader: 'babel-loader',//在webpack的module部分的loaders里进行配置即可
                 query: {
                     presets: ['es2015']
