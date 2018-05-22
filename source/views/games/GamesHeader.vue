@@ -12,10 +12,10 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
-    import {mapGetters} from 'vuex'
-    import {store} from '../vuex/store';
-    import * as types from '../vuex/types';
+    import {mapGetters} from 'vuex';
+    import {store} from '../../vuex/store';
+    import * as types from '../../vuex/types';
+
     export default {
         name: "GamesHeader",
         data: function () {

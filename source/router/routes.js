@@ -1,14 +1,20 @@
-import Home from '../views/GamesPage.vue';
+import Game from '../views/games/GamesPage';
+import Share from '../views/share/SharePage';
 
 export const routes = [
     {
         path: '', name: 'games', components: {
-            default: Home,
+            default: Game,
         }
     },
     {
-        path: '/user', components: {
-            default: Home,
+        path: '/games', name: 'games', components: {
+            default: Game,
+        }
+    },
+    {
+        path: '/share', components: {
+            default: Share,
         }
     },
     {path: '/redirect-me', redirect: {name: 'games'}},

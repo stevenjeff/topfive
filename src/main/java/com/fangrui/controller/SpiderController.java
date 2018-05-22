@@ -1,16 +1,18 @@
 package com.fangrui.controller;
 
+import com.fangrui.domain.Resource;
 import com.fangrui.service.FacadeService;
 import com.fangrui.service.SpiderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 /**
- * Created by zhangfangrui on 2018/2/25.
+ * @author zhangfangrui
+ * @description
+ * @date 2018/5/22
  */
 @RestController
 public class SpiderController {
@@ -31,4 +33,16 @@ public class SpiderController {
         return facadeService.getGamesData(interval, gameSite);
     }
 
+    @PostMapping("/resourceAdd")
+    public boolean addNewResource(@RequestBody Resource resource) {
+        Resource addedResource = facadeService.addResource(resource);
+        if (addedResource.getId() != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Page<Resource> getResourcePage(Pageable pageable) {
+        return facadeService.getResourcePage(pageable);
+    }
 }

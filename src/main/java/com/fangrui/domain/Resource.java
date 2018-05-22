@@ -1,5 +1,6 @@
 package com.fangrui.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
@@ -12,13 +13,16 @@ import java.sql.Timestamp;
  */
 @Entity
 @EqualsAndHashCode
+@Data
 @Table(name = "RESOURCE", schema = "PUBLIC", catalog = "PUBLIC")
 public class Resource {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "type")
+    private Integer type;
+    @Column(name = "name", unique = true)
     private String name;
     @Column(name = "url")
     private String url;

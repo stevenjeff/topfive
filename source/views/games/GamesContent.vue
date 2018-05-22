@@ -37,8 +37,9 @@
 </template>
 <script>
     import {mapGetters} from 'vuex';
-    import {store} from '../vuex/store';
-    import * as types from '../vuex/types';
+    import {store} from '../../vuex/store';
+    import * as types from '../../vuex/types';
+
     export default {
         name: "Games",
         data: function () {
