@@ -172,22 +172,8 @@
             },
             //添加
             add: function () {
-                this.$prompt('请输入名称', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                }).then(({value}) => {
-                    if (value == '' || value == null)
-                        return;
-                    this.$http.post('newstu/add', {"name": value}, {emulateJSON: true}).then(function (res) {
-                        this.loadData(this.criteria, this.currentPage, this.pagesize);
-                    }, function () {
-                        console.log('failed');
-                    });
-                }).catch(() => {
-
-                });
+                store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, true);
             },
-
             //多项删除
             deletenames: function () {
                 if (this.multipleSelection.length == 0)

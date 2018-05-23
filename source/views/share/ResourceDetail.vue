@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+    <el-dialog title="收货地址" :visible.sync="showAddForm">
         <el-form :model="form">
             <el-form-item label="资源名称" :label-width="formLabelWidth">
                 <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -18,15 +18,26 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button @click="hidePage()">取 消</el-button>
+            <el-button type="primary" @click="hidePage()">确 定</el-button>
         </div>
     </el-dialog>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
+    import {store} from '../../vuex/store';
+    import * as types from '../../vuex/types';
+
     export default {
         name: "ResourceDetail",
+        created: function () {
+        },
+        computed: {
+            ...mapGetters({
+                showAddForm: types.RESOURCE_SHOW_PAGE_GETTER
+            })
+        },
         data: function () {
             return {
                 form: {
@@ -35,9 +46,13 @@
                     url: '',
                     author: ''
                 },
-                dialogFormVisible: false,
                 formLabelWidth: '120px'
             };
+        },
+        methods: {
+            hidePage() {
+                store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, false);
+            }
         }
     }
 </script>
