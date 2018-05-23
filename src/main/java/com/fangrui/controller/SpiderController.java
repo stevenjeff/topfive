@@ -6,8 +6,10 @@ import com.fangrui.service.SpiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 /**
  * @author zhangfangrui
@@ -34,7 +36,8 @@ public class SpiderController {
     }
 
     @PostMapping("/resourceAdd")
-    public boolean addNewResource(@RequestBody Resource resource) {
+    public boolean addNewResource(@RequestBody @Validated Resource resource) {
+        resource.setCreateTime(new Timestamp(System.currentTimeMillis()));
         Resource addedResource = facadeService.addResource(resource);
         if (addedResource.getId() != null) {
             return true;

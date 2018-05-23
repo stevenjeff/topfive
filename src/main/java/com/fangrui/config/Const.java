@@ -1,4 +1,4 @@
-package com.fangrui.util;
+package com.fangrui.config;
 
 /**
  * @author zhangfangrui
@@ -32,7 +32,7 @@ public class Const {
 
             @Override
             public String getName() {
-                return "视频";
+                return "电影";
             }
         },
         TELEVISION_TYPE {
