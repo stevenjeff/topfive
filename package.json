@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.0",
+    "bootstrap-table": "^1.12.1",
     "element-ui": "^2.3.9",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
