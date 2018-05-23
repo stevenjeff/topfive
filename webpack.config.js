@@ -7,7 +7,7 @@ const dir = "D:/intelijworkspace/topfive";
 module.exports = {
     //2、进出口文件配置
     entry: {
-        index: path.resolve(dir, 'D:/intelijworkspace/topfive/source/index.js')
+        index: path.resolve(__dirname + '/source/index.js')
     },
     output: {//输出
         path: __dirname + '/build',//输出路径
