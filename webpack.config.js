@@ -60,6 +60,15 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loaders: 'style-loader!css-loader!sass-loader'
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000
+                    }
+                }]
             }
         ]
     },

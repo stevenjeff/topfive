@@ -6,12 +6,15 @@ import {routes} from './router/routes'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {axiosCon} from './config/axiosConfig';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.prototype.$axios = axiosCon;
 Vue.config.productionTip = false;
 //开启debug模式
 Vue.config.debug = true;
 
+Vue.use(ElementUI);
 Vue.use(VueRouter);
 
 Vue.filter('currency', (value) => {
