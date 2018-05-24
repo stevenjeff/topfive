@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="收货地址" :visible.sync="showAddForm">
+    <el-dialog title="收货地址" :visible.sync="showPanel">
         <el-form :model="form">
             <el-form-item label="资源名称" :label-width="formLabelWidth">
                 <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -38,6 +38,16 @@
                 showAddForm: types.RESOURCE_SHOW_PAGE_GETTER
             })
         },
+        watch: {
+            showPanel: function (value) {
+                if (!value) {
+                    store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, value);
+                }
+            },
+            showAddForm: function (value) {
+                this.showPanel = value;
+            }
+        },
         data: function () {
             return {
                 form: {
@@ -46,7 +56,8 @@
                     url: '',
                     author: ''
                 },
-                formLabelWidth: '120px'
+                formLabelWidth: '120px',
+                showPanel: false
             };
         },
         methods: {
