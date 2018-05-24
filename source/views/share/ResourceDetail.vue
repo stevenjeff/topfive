@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="收货地址" :visible.sync="showPanel">
+    <el-dialog title="新增资源" :visible.sync="showPanel">
         <el-form :model="form">
             <el-form-item label="资源名称" :label-width="formLabelWidth">
                 <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -56,7 +56,7 @@
                     url: '',
                     author: ''
                 },
-                formLabelWidth: '120px',
+                formLabelWidth: '80px',
                 showPanel: false
             };
         },
