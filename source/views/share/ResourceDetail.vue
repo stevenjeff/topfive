@@ -19,7 +19,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="hidePage()">取 消</el-button>
-            <el-button type="primary" @click="hidePage()">确 定</el-button>
+            <el-button type="primary" @click="save()">确 定</el-button>
         </div>
     </el-dialog>
 </template>
@@ -62,6 +62,14 @@
         },
         methods: {
             hidePage() {
+                store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, false);
+            },
+            save() {
+                let payload = {
+                    key: this.site,
+                    interval: value
+                };
+                store.dispatch(types.ACTION_ADD_RESOURCE, payload);
                 store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, false);
             }
         }

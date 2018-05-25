@@ -33,7 +33,7 @@ const actions = {
     },
     [types.ACTION_ADD_RESOURCE]: ({commit}, payload) => {
         axiosCon.get("/resourceAdd").then(res => {
-            commit(types.MUTATE_ADD_RESOURCE, res.data)
+            commit(types.MUTATE_ADD_RESOURCE, res.data);
         }).catch(error => console.log(error));
     }
 };
