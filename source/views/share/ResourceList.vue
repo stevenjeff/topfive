@@ -34,14 +34,23 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="id"
-                        label="Id"
-                        sortable
-                        show-overflow-tooltip>
+                        prop="name"
+                        label="资源名称"
+                        sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="name"
-                        label="姓名"
+                        prop="type"
+                        label="资源类型"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="url"
+                        label="资源地址"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="author"
+                        label="贡献人"
                         sortable>
                 </el-table-column>
                 <el-table-column label="操作">
@@ -87,13 +96,19 @@
         },
         computed: {
             ...mapGetters({
-                resourcePage: types.RESOURCE_LIST_GETTER
+                resourcePage: types.RESOURCE_LIST_GETTER,
+                resourceObj: types.RESOURCE_DETAIL_GETTER
             })
         },
         watch: {
             resourcePage: function (value) {
-                this.tableData = value.pagestudentdata;
-                this.totalCount = value.number;
+                console.log(value);
+                console.log(value.totalElements);
+                this.tableData = value.content;
+                this.totalCount = value.totalElements;
+            },
+            resourceObj: function (value) {
+                this.search();
             }
         },
         data: function () {
@@ -123,8 +138,8 @@
             //从服务器读取数据
             loadData: function (criteria, pageNum, pageSize) {
                 let payload = {
-                    pageNumber: pageNum,
-                    pageSize: pageSize
+                    page: pageNum - 1,
+                    size: pageSize
                 };
                 store.dispatch(types.ACTION_LIST_RESOURCE, payload);
             },

@@ -4,6 +4,7 @@ export const DATE_RANGE_GETTER = 'games/DATE_RANGE';
 export const DATA_KEYS_GETTER = 'games/DATA_KEYS_GETTER';
 export const SITE_CHANGE_GETTER = 'games/SITE_CHANGE_GETTER';
 export const RESOURCE_LIST_GETTER = 'games/RESOURCE_LIST_GETTER';
+export const RESOURCE_DETAIL_GETTER = 'games/RESOURCE_DETAIL_GETTER';
 export const RESOURCE_SHOW_PAGE_GETTER = 'games/RESOURCE_SHOW_PAGE_GETTER';
 
 // Mutations

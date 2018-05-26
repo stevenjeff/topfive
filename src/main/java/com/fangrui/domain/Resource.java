@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -21,7 +22,7 @@ public class Resource {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "{resource.type.notBlank}")
+    @NotNull(message = "{resource.type.notBlank}")
     @Column(name = "type", columnDefinition = "int not null")
     private Integer type;
     @NotBlank(message = "{resource.name.notBlank}")

@@ -65,10 +65,7 @@
                 store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, false);
             },
             save() {
-                let payload = {
-                    key: this.site,
-                    interval: value
-                };
+                let payload = this.form;
                 store.dispatch(types.ACTION_ADD_RESOURCE, payload);
                 store.commit(types.MUTATE_SHOW_PAGE_RESOURCE, false);
             }
